@@ -11,7 +11,7 @@ function page() {
 
   return (
     <div>
-      <LabNavbar />
+      <VillaNavbar />
       <VillaMiddle />
     </div>
 
