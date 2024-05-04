@@ -172,113 +172,7 @@ function VillaMiddle() {
         theme="light"
       />
       <div className='w-screen flex flex-col justify-center items-center'>
-        <div className='flex flex-col justify-center items-center p-20  my-20 rounded-lg space-y-5 border border-gray-200 shadow-lg '>
-          <h1 className={`${raleway.className} text-4xl font-bold mb-10`}>Create Booking </h1>
-          <form className='flex flex-col justify-start items-start space-y-10 '>
 
-            {/* <div className="mb-4 flex justify-center items-center ">
-                            <h1 className={`${inter.className} text-md font-bold mr-5`}>Select Date</h1>
-
-                            <DatePicker dateFormat="dd/MM/yyyy" selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
-                        </div> */}
-
-            {/* <div className='flex justify-start items-start space-x-10'>
-                            <div className="flex flex-col justify-start items-start space-y-4">
-                                <h1 className="font-bold text-md">Hours</h1>
-                                <Select
-                                    defaultValue={hours}
-                                    onChange={setHours}
-                                    options={hourOptions}
-                                />
-                            </div>
-                            <div className="flex flex-col justify-start items-center space-y-4">
-                                <h1 className="text-md font-bold">Period</h1>
-                                <Select
-                                    defaultValue={period}
-                                    onChange={setPeriod}
-                                    options={periodOptions}
-                                />
-                            </div>
-                        </div> */}
-
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Name</h1>
-              <input
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                type="text"
-                placeholder="Rakesh Patil"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-400 w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Contact</h1>
-              <input
-                onChange={(e) => setContact(e.target.value)}
-                value={contact}
-                type="text"
-                placeholder="9134244728"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-400 w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Budget Per Person</h1>
-              <input
-                onChange={(e) => setBudgetPerPerson(e.target.value)}
-                value={budgetPerPerson}
-                type="number"
-                placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-400 w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter No. Of People</h1>
-              <input
-                onChange={(e) => setPeople(e.target.value)}
-                value={people}
-                type="number"
-                placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-400 w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter No. of Days</h1>
-              <input
-                onChange={(e) => setDays(e.target.value)}
-                value={days}
-                type="number"
-                placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-400 w-96 rounded-lg"
-              />
-            </div>
-            {/* <div className="flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Select Villa</h1>
-
-              <select
-                value={villaName}
-                onChange={handleVillaDropdown}
-                className="block w-96 py-2 px-5 leading-tight border border-gray-700 focus:outline-none cursor-pointer"
-              >
-                {allVillasObj.map((villa, index) => (
-                  <option key={index} value={villa.name}>
-                    {villa.name}
-                  </option>
-                ))}
-              </select>
-            </div> */}
-
-
-
-            <div onClick={createBooking} type="submit" class="cursor-pointer relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-50 w-72 mx-auto">
-              <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
-              <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-              </span>
-              <span class="relative text-center text-md">Book Now</span>
-            </div>
-
-          </form>
-        </div>
 
         <div class="w-screen px-40 py-10 flex flex-col ">
           <div class="flex justify-between items-center ">
@@ -319,6 +213,8 @@ function VillaMiddle() {
             </div>
           ))}
         </div>
+
+ 
 
 
       </div>

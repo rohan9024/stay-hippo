@@ -40,6 +40,7 @@ function ViewBookings() {
             querySnapshot.forEach((doc) => {
                 fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, total: doc.data().total });
             });
+            console.log(fetchedBookings)
 
             setBookingsObj(fetchedBookings);
             setViewBooking(true)
@@ -116,7 +117,7 @@ function ViewBookings() {
                                             <h1>{vcount++}</h1>
                                         </th>
                                         <td class="px-6 py-4">
-                                            <h1 className='truncate w-20'>{villa.name}</h1>
+                                            <h1 className='truncate w-36'>{villa.name}</h1>
                                         </td>
 
                                         <td class="px-6 py-4">
