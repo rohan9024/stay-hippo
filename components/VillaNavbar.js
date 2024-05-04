@@ -29,12 +29,13 @@ function VillaNavbar() {
             <div class="w-screen py-6 px-10 flex justify-between items-center">
                 <Link href="/" class={`${poppins.className} text-lg font-medium cursor-pointer`}>Stay Hippo</Link>
                 <div class="flex justify-center items-center space-x-10">
-                    <Link href="/villa-panel" class={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Lab Panel</Link>
+                    <Link href="/villa-panel" class={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Villa Panel</Link>
                     <div onClick={() => {
                         router.push('/villa-login');
                         if (typeof window !== 'undefined') {
                             localStorage.setItem("isVilla", "false") || ''
                         }
+                        setVilla(null)
                     }}>
                         <div class={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>
                             <h1>Logout</h1>

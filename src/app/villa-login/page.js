@@ -96,14 +96,24 @@ function page() {
           );
 
           const querySnapshot = await getDocs(q);
+let villaName;
 
           if (querySnapshot.empty) {
             alert("Something went wrong");
           } else {
+
+            querySnapshot.forEach((doc)=> {
+              setVilla({
+                id: doc.id,
+                name: doc.data().name,
+                location: doc.data().location
+              })
+              villaName = doc.data().name
+          })
             alert("Logged in Successfully");
-            setVilla(true)
             if (typeof window !== 'undefined') {
               localStorage.setItem("isVilla", "true") || '';
+              localStorage.setItem("villaName", villaName) || '';
             }
 
             router.push("/villa-panel");
