@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Navbar from "../../../components/Navbar";
-import ViewRequests from '../../../components/ViewRequests';
+import ViewRequests from '../../../components/ViewBookings';
 
 function page() {
 

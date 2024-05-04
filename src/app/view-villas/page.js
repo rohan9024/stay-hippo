@@ -84,7 +84,7 @@ function page() {
                             key={group.id}
                             href={{
                                 pathname: `/view-villas/${group.name}`,
-                                query: { groupName: group.name },
+                                query: { groupName: group.name, groupID: group.id },
                             }}
                             className="px-12 py-4 lg:px-0 lg:py-0 flex justify-center items-center lg:w-[200px] lg:h-[200px] shadow-2xl rounded-xl bg-[#60a5fa] hover:cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
                         >

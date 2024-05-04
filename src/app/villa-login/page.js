@@ -90,7 +90,7 @@ function page() {
 
         if (username && password) {
           const q = query(
-            collection(db, "villa"),
+            collection(db, "villaAccounts"),
             where("username", "==", username),
             where("password", "==", password)
           );

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { Poppins } from 'next/font/google';
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const poppins = Poppins({
@@ -14,7 +14,7 @@ function Middle() {
   const [active, setActive] = useState("Overview")
   const [itemModal, setItemModal] = useState(false)
   const [itemName, setItemName] = useState("")
-  const [editModal, setEditModal] = useState(null)
+  const [editGroup, setEditGroup] = useState(null)
   const [editItem, setEditItem] = useState(null)
   const [editVilla, setEditVilla] = useState(null)
   const [item, setItem] = useState("")
@@ -29,25 +29,7 @@ function Middle() {
   const [fetch, setFetch] = useState(false)
 
 
-  const [inventoryObj, setInventoryObj] = useState([])
 
-  useEffect(() => {
-    if (!fetch) {
-      const fetchInventoryObj = async () => {
-        const querySnapshot = await getDocs(collection(db, "inventory"));
-        const fetchedInventory = [];
-
-        querySnapshot.forEach((doc) => {
-          fetchedInventory.push({ id: doc.id, item: doc.data().item, stock: doc.data().stock });
-        });
-
-        setInventoryObj(fetchedInventory);
-        setFetch(true);
-      }
-
-      fetchInventoryObj();
-    }
-  }, [fetch]);
 
 
   const [villaObj, setVillaObj] = useState([])
@@ -99,20 +81,7 @@ function Middle() {
 
 
 
-  const createItem = async () => {
-    if (item && stock) {
-      try {
-        await addDoc(collection(db, 'inventory'), {
-          item: item,
-          stock: stock
-        });
-        alert('Created Item successfully');
-        window.location.reload();
-      } catch (error) {
-        alert('Something went wrong');
-      }
-    }
-  };
+
   const createVilla = async () => {
     if (villaName) {
       try {
@@ -159,33 +128,108 @@ function Middle() {
       alert('Unable to update');
     }
   }
+  async function editGroupRequest(id, group) {
 
-  async function updateDept(editDept) {
-    const docRef = doc(db, "departments", editDept.id);
+
+    // Update the doc first
+    const docRef = doc(db, "groups", id);
 
     try {
       await updateDoc(docRef, {
-        name: villaName,
+        name: groupName,
       });
 
-      alert('Updated the Department Successfully');
-      window.location.reload();
     } catch (error) {
+      alert(error)
       alert('Unable to update');
     }
-  }
 
 
-  async function deleteItem(item) {
-    var answer = window.confirm("Delete Item?");
-    if (answer) {
-      await deleteDoc(doc(db, "inventory", item.id));
+    // Find and update docs
+
+    const q = query(
+      collection(db, "villas"),
+      where("group", "==", group),
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      alert("Not found");
+    } else {
+      const fetchedVillas = [];
+
+      querySnapshot.forEach((doc) => {
+        fetchedVillas.push(doc.id);
+      });
+
+      fetchedVillas.forEach(async (document) => {
+        const docRef = doc(db, "villas", document);
+
+        await updateDoc(docRef, {
+          group: groupName,
+        });
+      });
+
+      alert("Updated Group Name Successfully")
       window.location.reload();
+
+
     }
-    else {
-      return;
-    }
+
   }
+  async function deleteGroupRequest(id, group) {
+
+
+    // Update the doc first
+    const docRef = doc(db, "groups", id);
+
+    try {
+      await deleteDoc(docRef, {
+        name: groupName,
+      });
+
+    } catch (error) {
+      alert(error)
+      alert('Unable to update');
+    }
+
+
+    // Find and update docs
+
+    const q = query(
+      collection(db, "villas"),
+      where("group", "==", group),
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      alert("Deleted Group Successfully")
+      window.location.reload();
+    } else {
+      const fetchedVillas = [];
+
+      querySnapshot.forEach((doc) => {
+        fetchedVillas.push(doc.id);
+      });
+
+      fetchedVillas.forEach(async (document) => {
+        const docRef = doc(db, "villas", document);
+
+        await deleteDoc(docRef);
+      });
+
+      alert("Deleted Group Successfully")
+      window.location.reload();
+
+
+    }
+
+  }
+
+
+
   async function deleteVilla(villa) {
     var answer = window.confirm("Delete Villa?");
     if (answer) {
@@ -335,7 +379,47 @@ function Middle() {
                     className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
                   />
 
-                  <div type="submit" onClick={() => editVillaRequest(editVilla.id, editVilla.name, editVilla.group)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
+                  <div type="submit" onClick={() => editVillaRequest(editVilla.id)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
+                    <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                    <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                    <span class="relative">Submit</span>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
+      {
+        editGroup && (
+          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
+            <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
+              <div class="relative bg-white rounded-lg shadow ">
+                <div class="flex items-start justify-between p-4 border-b rounded-t ">
+                  <h3 class="text-xl font-semibold text-gray-900 ">
+                    Edit Villa Details
+                  </h3>
+                  <button onClick={() => setEditGroup(null)} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                  </button>
+                </div>
+                <div className='flex flex-col space-y-5 mb-20  mx-12 my-5'>
+                  <h1 className={`${poppins.className} text-lg font-medium`}>Enter Group Name</h1>
+                  <input
+                    onChange={(e) => setGroupName(e.target.value)}
+                    value={groupName}
+                    type="text"
+                    placeholder="Group 1"
+                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                  />
+                  <div type="submit" onClick={() => editGroupRequest(editGroup.id, editGroup.name)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
                     <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
                     <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -374,10 +458,10 @@ function Middle() {
 
                   <div className='flex justify-end items-end space-x-2'>
 
-                    <div class="mt-10 cursor-pointer " onClick={() => setEditItem(item)} >
+                    <div class="mt-10 cursor-pointer " onClick={() => setEditGroup(group)} >
                       <img src="/edit.png" alt="edit" className='w-7 h-7' />
                     </div>
-                    <div class="mt-10 cursor-pointer " onClick={() => deleteItem(item)} >
+                    <div class="mt-10 cursor-pointer " onClick={() => deleteGroupRequest(group.id, group.name)} >
                       <img src="/delete.png" alt="delete" className='w-7 h-7' />
                     </div>
                   </div>
