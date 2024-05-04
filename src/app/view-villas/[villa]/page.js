@@ -213,15 +213,13 @@ function GroupProps({ params }) {
                     </div>
                 )
             }
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }} className='px-10 md:px-28 pt-10 bg-black text-gray-200'>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }} className='px-10 md:px-28 pt-10 h-screen bg-black text-gray-200'>
                 <div className={`${poppins.className} flex justify-start items-center space-x-2 pb-10 `}>
                     <img src='/back.png' alt="back" className='w-5 h-5 ' />
                     <Link href="/view-villas" className='text-lg text-gray-200 cursor-pointer hover:ease-in transition  hover:text-gray-200'>Back</Link>
                 </div>
                 <div className={`${poppins.className} flex justify-between items-center`}>
                     <h1 className='text-2xl lg:text-4xl font-semibold tracking-wide text-gray-200'>{params.groupName}</h1>
-
-
                     <div class="flex justify-center items-center space-x-5">
                         <div className='flex justify-center items-center px-5 py-2 bg-black border border-gray-800  rounded-lg text-gray-200 cursor-pointer' onClick={() => setAllocationModal(true)}>
                             <h1 class={`${poppins.className} text-md  `}>Create New Allocation</h1>
