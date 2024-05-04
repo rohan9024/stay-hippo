@@ -171,7 +171,7 @@ function VillaMiddle() {
         pauseOnHover
         theme="light"
       />
-      <div className='w-screen flex flex-col justify-center items-center'>
+      <div className='w-screen pb-44 flex flex-col justify-start items-center'>
 
 
         <div class="w-screen px-40 py-10 flex flex-col ">
@@ -184,7 +184,7 @@ function VillaMiddle() {
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-10 ">
           {bookingObj.map((booking) => (
-            <div class="flex flex-col justify-center border border-gray-300 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
+            <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
               <h1 class={`${poppins.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
               <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>
               <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>No. Of People: {booking.people}</h1>

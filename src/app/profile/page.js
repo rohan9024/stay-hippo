@@ -241,13 +241,13 @@ function page() {
             {
                 createAccountModal && (
                     <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
-                        <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
-                            <div class="relative bg-white rounded-lg shadow ">
-                                <div class="flex items-start justify-between p-4 border-b rounded-t ">
-                                    <h3 class="text-xl font-semibold text-gray-900 ">
+                        <div className="w-full max-w-2xl bg-black rounded-lg shadow ">
+                            <div class="relative bg-black rounded-lg shadow ">
+                                <div class="flex items-start justify-between p-4 border-gray-800 border-b rounded-t ">
+                                    <h3 class="text-xl font-semibold text-gray-200 ">
                                         Create Account
                                     </h3>
-                                    <button onClick={() => setCreateAccountModal(null)} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
+                                    <button onClick={() => setCreateAccountModal(null)} type="button" class="text-gray-200 bg-transparent hover:bg-gray-900 hover:text-gray-200 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                         </svg>
@@ -256,7 +256,7 @@ function page() {
                                 </div>
 
 
-                                <div className='flex flex-col space-y-5 mb-20  mx-12 my-5'>
+                                <div className='flex flex-col space-y-5 mb-20  mx-12 my-5 text-gray-200'>
                                     <h1 className={`${poppins.className} text-lg font-bold my-5`}>Enter Location</h1>
 
                                     <input
@@ -264,45 +264,45 @@ function page() {
                                         value={location}
                                         type="text"
                                         placeholder="Lonavala"
-                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96 bg-transparent"
                                     />
 
 
-                                    <h1 className={`${poppins.className} text-lg font-bold my-5`}>Select Villa</h1>
+                                    <h1 className={`${poppins.className} text-lg font-bold my-5 text-gray-200`}>Select Villa</h1>
 
                                     <select
                                         value={villa}
                                         onChange={handleVillaDropdown}
-                                        className="block w-96 py-2 px-5 leading-tight border border-gray-700 focus:outline-none cursor-pointer"
-                                    >
+                                        className="block w-96 py-2 px-5 leading-tight border border-gray-900 bg-black text-white focus:outline-none cursor-pointer"
+                                        >
                                         {allVillasObj.map((villa, index) => (
                                             <option key={index} value={villa.name}>
                                                 {villa.name}
                                             </option>
                                         ))}
                                     </select>
-                                    <h1 className={`${poppins.className} text-lg font-bold`}>Enter Username</h1>
+                                    <h1 className={`${poppins.className} text-lg font-bold text-gray-200`}>Enter Username</h1>
                                     <input
                                         onChange={(e) => setUsername(e.target.value)}
                                         value={username}
                                         type="text"
                                         placeholder="abc"
-                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96 bg-transparent"
                                     />
 
-                                    <h1 className={`${poppins.className} text-lg font-bold my-5`}>Enter Password</h1>
+                                    <h1 className={`${poppins.className} text-lg font-bold my-5 text-gray-200`}>Enter Password</h1>
 
                                     <input
                                         onChange={(e) => setPassword(e.target.value)}
                                         value={password}
                                         type="text"
                                         placeholder="abc"
-                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96 bg-transparent"
                                     />
 
 
-                                    <div type="submit" onClick={() => createVillaAccount()} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
-                                        <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                                    <div type="submit" onClick={() => createVillaAccount()} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-gray-200 border-2 border-gray-900 rounded-full hover:text-gray-200 group hover:bg-gray-600">
+                                        <span class="absolute left-0 block w-full h-0 transition-all bg-gray-900 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
                                         <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                         </span>
@@ -318,14 +318,14 @@ function page() {
             }
             {
                 editAccountModal && (
-                    <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
-                        <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
-                            <div class="relative bg-white rounded-lg shadow ">
-                                <div class="flex items-start justify-between p-4 border-b rounded-t ">
-                                    <h3 class="text-xl font-semibold text-gray-900 ">
+                    <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-black bg-opacity-80 `}>
+                        <div className="w-full max-w-2xl bg-black rounded-lg shadow ">
+                            <div class="relative bg-black rounded-lg shadow ">
+                                <div class="flex items-start justify-between p-4 border-gray-900 border-b rounded-t ">
+                                    <h3 class="text-xl font-semibold text-gray-200 ">
                                         Edit Account
                                     </h3>
-                                    <button onClick={() => setEditAccountModal(null)} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
+                                    <button onClick={() => setEditAccountModal(null)} type="button" class="text-gray-200 bg-transparent hover:bg-black hover:text-gray-200 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                         </svg>
@@ -334,53 +334,53 @@ function page() {
                                 </div>
 
 
-                                <div className='flex flex-col space-y-5 mb-20  mx-12 my-5'>
-                                    <h1 className={`${poppins.className} text-lg font-bold my-5`}>Enter Location</h1>
+                                <div className='flex flex-col space-y-5 my-5  mx-12 '>
+                                    <h1 className={`${poppins.className} text-lg font-bold  text-gray-200`}>Enter Location</h1>
 
                                     <input
                                         onChange={(e) => setLocation(e.target.value)}
                                         value={location}
                                         type="text"
                                         placeholder="Lonavala"
-                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border bg-transparent border-gray-800 w-96"
                                     />
 
 
-                                    <h1 className={`${poppins.className} text-lg font-bold my-5`}>Select Villa</h1>
+                                    <h1 className={`${poppins.className} text-lg font-bold my-5 text-gray-200`}>Select Villa</h1>
 
                                     <select
                                         value={editVilla}
                                         onChange={handleEditVillaDropdown}
-                                        className="block w-96 py-2 px-5 leading-tight border border-gray-700 focus:outline-none cursor-pointer"
-                                    >
+                                        className="block w-96 py-2 px-5 leading-tight border border-gray-900 bg-black text-white focus:outline-none cursor-pointer"
+                                        >
                                         {allVillasObj.map((villa, index) => (
                                             <option key={index} value={villa.name}>
                                                 {villa.name}
                                             </option>
                                         ))}
                                     </select>
-                                    <h1 className={`${poppins.className} text-lg font-medium`}>Enter Username</h1>
+                                    <h1 className={`${poppins.className} text-lg font-medium text-gray-200`}>Enter Username</h1>
                                     <input
                                         onChange={(e) => setUsername(e.target.value)}
                                         value={username}
                                         type="text"
                                         placeholder="abc"
-                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border bg-transparent border-gray-800 w-96"
                                     />
 
-                                    <h1 className={`${poppins.className} text-lg font-bold my-5`}>Enter Password</h1>
+                                    <h1 className={`${poppins.className} text-lg font-bold my-5 text-gray-200`}>Enter Password</h1>
 
                                     <input
                                         onChange={(e) => setPassword(e.target.value)}
                                         value={password}
                                         type="text"
                                         placeholder="abc"
-                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                                        className="placeholder:text-gray-500  px-5 py-2 outline-none border bg-transparent border-gray-800 w-96"
                                     />
 
 
-                                    <div type="submit" onClick={() => updateAccount(editAccountModal)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
-                                        <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                                    <div type="submit" onClick={() => updateAccount(editAccountModal)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-gray-200 border-2 border-gray-900 rounded-full hover:text-gray-200 group hover:bg-gray-600">
+                                        <span class="absolute left-0 block w-full h-0 transition-all bg-gray-900 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
                                         <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                         </span>
@@ -396,29 +396,29 @@ function page() {
             }
 
 
-            <div>
-                <div className='flex flex-col justify-center items-center w-screen mt-20 space-y-5'>
+            <div className='bg-black h-screen'>
+                <div className='flex flex-col justify-center items-center w-screen  pt-20 space-y-5 bg-black'>
                     <div className='flex justify-center items-center space-x-10'>
-                        <div onClick={() => setActive('ResetCredentials')} className={`${active === 'ResetCredentials' ? 'bg-blue-600 text-white border-0' : ''} border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition  hover:bg-gray-200`}>
-                            <h1 class={`${poppins.className} text-lg font-medium cursor-pointer rounded-2xl`}>Reset your credentials</h1>
+                        <div onClick={() => setActive('ResetCredentials')} className={`${active === 'ResetCredentials' ? 'bg-blue-600 text-gray-200 border-0' : ''} border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition  hover:bg-gray-900`}>
+                            <h1 class={`${poppins.className} text-lg font-medium cursor-pointer rounded-2xl text-gray-200`}>Reset your credentials</h1>
                         </div>
-                        <div onClick={() => setActive('ManageAccounts')} className={`${active === 'ManageAccounts' ? 'bg-blue-600 text-white border-0' : ''} border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition  hover:bg-gray-200`}>
-                            <h1 class={`${poppins.className} text-lg font-medium cursor-pointer  rounded-2xl
+                        <div onClick={() => setActive('ManageAccounts')} className={`${active === 'ManageAccounts' ? 'bg-blue-600 text-gray-200 border-0' : ''} border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition  hover:bg-gray-900`}>
+                            <h1 class={`${poppins.className} text-lg font-medium cursor-pointer  rounded-2xl text-gray-200
                         `}>Manage accounts</h1>
                         </div>
                     </div>
                 </div>
 
 
-                {active === "ResetCredentials" && (<div className='flex flex-col justify-center items-center w-screen mt-24 space-y-5'>
+                {active === "ResetCredentials" && (<div className='flex flex-col justify-center items-center w-screen pt-24 space-y-5 bg-black text-gray-200'>
                     <h1 className={`${raleway.className} text-4xl font-bold mb-10`}>Reset your credentials </h1>
                     <form className='flex flex-col justify-center items-center space-y-10 '>
-                        <input onChange={(e) => setUsername(e.target.value)} required type="text" placeholder="Enter Username" className={`${inter.className} placeholder:text-gray-800 px-5 py-2  outline-none border border-gray-800 w-96`} />
-                        <input onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Password" className={`${inter.className} placeholder:text-gray-800 px-5 py-2  outline-none border border-gray-800 w-96`} />
+                        <input onChange={(e) => setUsername(e.target.value)} required type="text" placeholder="Enter Username" className={`${inter.className} placeholder:text-gray-800 px-5 py-2 bg-transparent  outline-none border border-gray-800 w-96`} />
+                        <input onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Password" className={`${inter.className} placeholder:text-gray-800 px-5 py-2 bg-transparent outline-none border border-gray-800 w-96`} />
 
 
-                        <div onClick={updateAdmin} disabled={!username || !password} type="submit" class="cursor-pointer relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-50 w-96 mx-auto">
-                            <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                        <div onClick={updateAdmin} disabled={!username || !password} type="submit" class="cursor-pointer relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-gray-200 border-2 border-gray-900 rounded-full hover:text-white group hover:bg-gray-700 w-96 mx-auto">
+                            <span class="absolute left-0 block w-full h-0 transition-all bg-gray-900 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
                             <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </span>
@@ -431,11 +431,11 @@ function page() {
                 }
                 {active === "ManageAccounts" && (
                     <>
-                        <div class="w-screen px-44 py-10 flex flex-col my-10">
+                        <div class="w-screen px-44 py-10 flex flex-col my-10 bg-black text-gray-200">
                             <div class="flex justify-between items-center ">
                                 <h1 class={`${poppins.className} text-4xl font-bold `}>Manage Accounts</h1>
                                 <div class="flex justify-center items-center space-x-5">
-                                    <div onClick={() => { setCreateAccountModal(true); setEditAccountModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-300 transition hover:ease-in hover:bg-gray-100  shadow-md rounded-lg  cursor-pointer'>
+                                    <div onClick={() => { setCreateAccountModal(true); setEditAccountModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-900 transition hover:ease-in hover:bg-gray-900  shadow-md rounded-lg  cursor-pointer'>
                                         <h1 class={`${poppins.className} text-md  `}>Create New Account</h1>
                                     </div>
 
@@ -448,7 +448,7 @@ function page() {
                             <div class="grid grid-cols-4 gap-10 py-14 ">
                                 {accountObj.map((account) => {
 
-                                    return account.id !== 1 && (<div class="flex flex-col justify-center border border-gray-300 shadow-md min-w-[250px] h-[220px] px-5 rounded-lg ">
+                                    return account.id !== 1 && (<div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[250px] h-[220px] px-5 rounded-lg ">
                                         <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>Villa: {account.name}</h1>
                                         <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>Location: {account.location}</h1>
                                         <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>Username: {account.username}</h1>

@@ -44,7 +44,7 @@ function VillaNavbar() {
 
                 </div>
             </div>
-            <div className='bg-gray-300 h-[1px] ' />
+            <div className='bg-gray-900 h-[1px] ' />
 
 
         </>

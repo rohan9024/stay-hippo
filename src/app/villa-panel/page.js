@@ -11,7 +11,7 @@ function page() {
 
 
   return (
-    <div>
+    <div className='text-gray-200 bg-black'>
       <VillaNavbar />
       <VillaMiddle />
       <VillaFooter />

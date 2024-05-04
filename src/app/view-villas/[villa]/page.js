@@ -142,10 +142,10 @@ function GroupProps({ params }) {
             {
                 allocationModal && (
                     <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
-                        <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
-                            <div class="relative bg-white rounded-lg shadow ">
+                        <div className="w-full max-w-2xl bg-black rounded-lg shadow ">
+                            <div class="relative bg-black rounded-lg shadow ">
                                 <div class="flex items-start justify-between p-4 border-b rounded-t ">
-                                    <h3 class="text-xl font-semibold text-gray-900 ">
+                                    <h3 class="text-xl font-semibold text-gray-200 ">
                                         Create New Allocation
                                     </h3>
                                     <button onClick={() => setAllocationModal(null)} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
@@ -155,14 +155,14 @@ function GroupProps({ params }) {
                                         <span class="sr-only">Close modal</span>
                                     </button>
                                 </div>
-                                <div className='flex flex-col space-y-5 mb-20  mx-12 my-5'>
+                                <div className='flex flex-col space-y-5 mb-20  mx-12 my-5 text-gray-200'>
 
-                                    <h1 className={`${poppins.className} text-lg font-bold mt-3`}>Select Villa</h1>
+                                    <h1 className={`${poppins.className} text-lg font-bold mt-3 text-gray-200`}>Select Villa</h1>
 
                                     <select
                                         value={villa}
                                         onChange={handleVillaDropdown}
-                                        className="block w-96 py-2 px-5 leading-tight border border-gray-700 focus:outline-none cursor-pointer"
+                                        className="block w-96 py-2 px-5 leading-tight border border-gray-900 bg-black text-white focus:outline-none cursor-pointer"
                                     >
                                         {allVillasObj.map((villa, index) => (
                                             <option key={index} value={villa.name}>
@@ -170,32 +170,31 @@ function GroupProps({ params }) {
                                             </option>
                                         ))}
                                     </select>
-                                    <div type="submit" onClick={() => villaAllocation()} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
-                                        <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                                    <div type="submit" onClick={() => villaAllocation()} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-gray-200 border-2 border-gray-800 rounded-full hover:text-gray-900 group hover:bg-gray-900">
+                                        <span class="absolute left-0 block w-full h-0 transition-all bg-white opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
                                         <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                         </span>
                                         <span class="relative">Submit</span>
                                     </div>
-
-
+                
                                 </div>
                             </div>
                         </div>
                     </div>
                 )
             }
-     
+
             {
                 deleteModal && (
                     <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
-                        <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
-                            <div class="relative bg-white rounded-lg ">
-                                <div class="flex items-start justify-between p-4 border-b rounded-t ">
-                                    <h3 class="text-xl font-semibold text-gray-900 ">
+                        <div className="w-full max-w-2xl bg-black rounded-lg shadow ">
+                            <div class="relative bg-black rounded-lg ">
+                                <div class="flex items-start justify-between p-4 border-b border-gray-800  rounded-t ">
+                                    <h3 class="text-xl font-semibold text-gray-200 ">
                                         Delete Allocation
                                     </h3>
-                                    <button onClick={() => setDeleteModal(null)} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
+                                    <button onClick={() => setDeleteModal(null)} type="button" class="text-gray-200 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                         </svg>
@@ -203,10 +202,10 @@ function GroupProps({ params }) {
                                     </button>
                                 </div>
                                 <div className='flex flex-col justify-center items-center  space-y-5 mb-20  mx-12 my-10'>
-                                    <h1 className={`${poppins.className} text-lg font-medium`}>Are you sure?</h1>
+                                    <h1 className={`${poppins.className} text-lg font-medium text-gray-200`}>Are you sure?</h1>
                                     <div className='flex justify-start items-center space-x-10'>
-                                        <h1 onClick={() => deleteAllocation(deleteModal)} className='px-5 py-2 border bg-red-700 text-white cursor-pointer'>Yes</h1>
-                                        <h1 onClick={() => setDeleteModal(null)} className='px-5 py-2 border bg-gray-700 text-white cursor-pointer'>No</h1>
+                                        <h1 onClick={() => deleteAllocation(deleteModal)} className='px-5 py-2  bg-red-700 text-white cursor-pointer rounded-lg'>Yes</h1>
+                                        <h1 onClick={() => setDeleteModal(null)} className='px-5 py-2  bg-gray-700 text-white cursor-pointer rounded-lg'>No</h1>
                                     </div>
                                 </div>
                             </div>
@@ -214,24 +213,24 @@ function GroupProps({ params }) {
                     </div>
                 )
             }
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }} className='mx-10 md:mx-28 mt-10'>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }} className='px-10 md:px-28 pt-10 bg-black text-gray-200'>
                 <div className={`${poppins.className} flex justify-start items-center space-x-2 pb-10 `}>
                     <img src='/back.png' alt="back" className='w-5 h-5 ' />
-                    <Link href="/view-villas" className='text-lg text-black cursor-pointer hover:ease-in transition  hover:text-gray-400'>Back</Link>
+                    <Link href="/view-villas" className='text-lg text-gray-200 cursor-pointer hover:ease-in transition  hover:text-gray-200'>Back</Link>
                 </div>
                 <div className={`${poppins.className} flex justify-between items-center`}>
-                    <h1 className='text-2xl lg:text-4xl font-semibold tracking-wide '>{params.groupName}</h1>
+                    <h1 className='text-2xl lg:text-4xl font-semibold tracking-wide text-gray-200'>{params.groupName}</h1>
 
 
                     <div class="flex justify-center items-center space-x-5">
-                        <div className='flex justify-center items-center px-5 py-2 bg-black rounded-lg text-white cursor-pointer' onClick={() => setAllocationModal(true)}>
+                        <div className='flex justify-center items-center px-5 py-2 bg-black border border-gray-800  rounded-lg text-gray-200 cursor-pointer' onClick={() => setAllocationModal(true)}>
                             <h1 class={`${poppins.className} text-md  `}>Create New Allocation</h1>
                         </div>
                     </div>
                 </div>
                 <div class={`${poppins.className} relative overflow-x-auto mt-10`}>
-                    <table class="w-full text-sm text-left text-gray-500 ">
-                        <thead class="text-md text-gray-700  bg-gray-50 border-b  ">
+                    <table class="w-full text-sm text-left text-gray-200 ">
+                        <thead class="text-md text-gray-200  bg-black border border-gray-800   ">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     Sr. No.
@@ -249,8 +248,8 @@ function GroupProps({ params }) {
                             villaObj.map((villa) => (
 
                                 <tbody>
-                                    <tr class="bg-white border-b ">
-                                        <th scope="row" class="w-24 px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap ">
+                                    <tr class="bg-black border border-gray-800  ">
+                                        <th scope="row" class="w-24 px-6 py-4 text-center font-medium text-gray-200 whitespace-nowrap ">
                                             <h1>{count++}</h1>
                                         </th>
                                         <td class="px-6 py-4">
