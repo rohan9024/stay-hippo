@@ -8,7 +8,6 @@ import { Inter, Raleway } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from "../contexts/AuthContext"
 import DatePicker from 'react-datepicker';
-import { Poppins } from 'next/font/google';
 import Select from 'react-select';
 
 
@@ -28,10 +27,7 @@ const inter = Inter({
   subsets: ['latin'],
 });
 
-const poppins = Poppins({
-  weight: ['100', '400', '500', '600', '700', '800'],
-  subsets: ['latin'],
-});
+
 
 function VillaMiddle() {
   const router = useRouter();
@@ -86,7 +82,7 @@ function VillaMiddle() {
 
   const createBooking = async () => {
 
-    if (name && contact  && people && budgetPerPerson && days ) {
+    if (name && contact && people && budgetPerPerson && days) {
       const total = budgetPerPerson * days;
 
       let today = new Date();
@@ -169,48 +165,51 @@ function VillaMiddle() {
         pauseOnHover
         theme="light"
       />
-      <div className='w-screen pb-44 flex flex-col justify-start items-center'>
+      <div className='w-screen h-screen flex flex-col justify-start items-center bg-black text-gray-200'>
 
 
         <div class="w-screen px-40 py-10 flex flex-col ">
           <div class="flex justify-between items-center ">
-            <h1 class={`${poppins.className} text-4xl font-bold `}>Checked In Bookings</h1>
+            <h1 class={`${inter.className} text-4xl font-bold `}>Existing Bookings</h1>
           </div>
         </div>
 
 
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-10 ">
-          {bookingObj.map((booking) => (
-            <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
-              <h1 class={`${poppins.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
-              <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>
-              <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>No. Of People: {booking.people}</h1>
-              <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>Budget Per Person: {booking.budgetPerPerson}</h1>
-              <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>No. of Days: {booking.days}</h1>
-              <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>Total: {booking.total}</h1>
-              <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>Check In: {booking.checkIn}</h1>
-              <h1 class={`${poppins.className} text-md font-medium  cursor-pointer `}>Check Out: {booking.checkOut}</h1>
+          {bookingObj.length > 0 ? (
+            bookingObj.map((booking) => (
+              <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
+                <h1 class={`${inter.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
+                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>
+                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. Of People: {booking.people}</h1>
+                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Budget Per Person: {booking.budgetPerPerson}</h1>
+                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. of Days: {booking.days}</h1>
+                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Total: {booking.total}</h1>
+                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check In: {booking.checkIn}</h1>
+                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check Out: {booking.checkOut}</h1>
 
-              <div className='flex justify-end items-end space-x-2 '>
-                {booking.checkOut ? null : (
-
-                  <div class="mt-2 cursor-pointer " onClick={() => checkout(booking)} >
-                    <img src="/accept.png" alt="checkout" className='w-7 h-7' />
+                <div className='flex justify-end items-end space-x-2 '>
+                  {booking.checkOut ? null : (
+                    <div class="mt-2 cursor-pointer " onClick={() => checkout(booking)} >
+                      <img src="/accept.png" alt="checkout" className='w-7 h-7' />
+                    </div>
+                  )}
+                  <div class="mt-2 cursor-pointer " onClick={() => deleteBooking(booking)} >
+                    <img src="/delete.png" alt="delete" className='w-7 h-7' />
                   </div>
-                )
-
-                }
-                <div class="mt-2 cursor-pointer " onClick={() => deleteBooking(booking)} >
-                  <img src="/delete.png" alt="delete" className='w-7 h-7' />
                 </div>
               </div>
-
+            ))
+          ) : (
+            <div className='text-left w-screen px-44 '>
+              <h1 class={`${inter.className} text-xl font-medium  cursor-pointer `}>No Bookings Found</h1>
             </div>
-          ))}
+          )}
+
         </div>
 
- 
+
 
 
       </div>

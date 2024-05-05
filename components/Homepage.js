@@ -28,7 +28,14 @@ function Homepage() {
             <div className="w-screen py-4 flex justify-center items-center bg-black text-gray-200 border-t border-gray-900 ">
                 <div className="flex flex-col items-center">
                     <h1 className={`${poppins.className} text-md font-medium`}>Copyright © 2024, Stay Hippo, All rights reserved.</h1>
-                    <h1 className={`${poppins.className} text-sm font-medium`}>For any queries, Contact: +919619128258.</h1>
+
+                    <div className='flex justify-center items-center space-x-4 mt-3'>
+                        <h1 className={`${poppins.className} text-sm font-medium`}>For any queries,</h1>
+                        <div class=" cursor-pointer flex items-center " >
+                            <img src="/whatsapp.svg" alt="whatsapp" className='w-7 h-7' />
+                            <h1 className={`${poppins.className} text-sm font-medium ml-1`}> +919619128258.</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
