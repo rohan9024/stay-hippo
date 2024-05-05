@@ -96,20 +96,17 @@ function CreateBooking() {
 
       today = dd + '/' + mm + '/' + yyyy;
 
-      let v
-      if (typeof window !== 'undefined') {
-        v = localStorage.getItem("villaName");
-      }
+   
       try {
         await addDoc(collection(db, 'bookings'), {
           name: name,
           contact: contact,
-          villa: v,
-          budgetPerPerson: budgetPerPerson,
+          villa: villaName,
+          budgetPerPerson: parseInt(budgetPerPerson),
           total: total,
           checkIn: today,
-          days: days,
-          people: people
+          days: parseInt(days),
+          people: parseInt(people)
         });
         alert('Created Booking Successfully');
         window.location.reload();
@@ -190,19 +187,21 @@ function CreateBooking() {
   async function findBookings() {
 
 
-      const q = query(
-        collection(db, "bookings"),
-        where("villa", "==", v2),
-      );
+    const q = query(
+      collection(db, "bookings"),
+      where("villa", "==", v2),
+    );
 
-      const querySnapshot = await getDocs(q);
-      const fetchedBookings = [];
+    const querySnapshot = await getDocs(q);
+    const fetchedBookings = [];
 
-      querySnapshot.forEach((doc) => {
-        fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
-      });
+    querySnapshot.forEach((doc) => {
+      fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
+    });
 
-      setBookingObj(fetchedBookings);
+    console.log(fetchedBookings)
+
+    setBookingObj(fetchedBookings);
 
   }
 
@@ -291,7 +290,7 @@ function CreateBooking() {
                 type="number"
                 placeholder="0"
                 className="placeholder:text-gray-500 px-5 py-2 outline-none border border-gray-900 bg-transparent appearance-none w-96 rounded-lg"
-               />
+              />
             </div>
             <div className=" flex flex-col justify-start items-start space-y-4">
               <h1 className={`${inter.className} text-md font-bold `}>Enter No. of Days</h1>
@@ -335,7 +334,7 @@ function CreateBooking() {
 
         <div class="w-screen px-40 py-10 flex justify-between items-center ">
           <div class="flex justify-between items-center ">
-            <h1 class={`${inter.className} text-4xl font-bold `}>Checked In Bookings</h1>
+            <h1 class={`${inter.className} text-4xl font-bold `}>Existing Bookings</h1>
           </div>
 
           <div class="flex justify-center items-center space-x-4">
@@ -343,7 +342,7 @@ function CreateBooking() {
               value={v2}
               onChange={handleVilla2Dropdown}
               className="block w-96 py-2 px-5 leading-tight border border-gray-900 bg-black text-white focus:outline-none cursor-pointer"
-              >
+            >
               {allVillasObj.map((villa, index) => (
                 <option key={index} value={villa.name}>
                   {villa.name}

@@ -155,8 +155,6 @@ function VillaMiddle() {
   }
 
 
-
-
   return (
     <>
       <ToastContainer
@@ -200,8 +198,6 @@ function VillaMiddle() {
                   <div class="mt-2 cursor-pointer " onClick={() => checkout(booking)} >
                     <img src="/accept.png" alt="checkout" className='w-7 h-7' />
                   </div>
-
-
                 )
 
                 }
