@@ -253,6 +253,8 @@ function Middle() {
     setGroup(event.target.value);
   };
 
+
+
   return (
     <>
 
@@ -539,11 +541,11 @@ function Middle() {
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-14">
           {Object.keys(groupedVillas).map((group) => (
-            <div key={group} className="flex flex-col justify-center border border-gray-300 shadow-md min-w-[250px] h-[150px] px-5 rounded-lg space-y-2">
+            <div key={group} className="flex flex-col py-5 justify-start border border-gray-300 shadow-md min-w-[250px] flex-grow px-5 rounded-lg space-y-2">
               <h1 class={`${poppins.className} text-xl font-bold cursor-pointer`}>{group}</h1>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col flex-grow flex-shrink-0 gap-4">
                 {groupedVillas[group].map((villa) => (
-                  <div key={villa.id} className='flex flex-col ' >
+                  <div key={villa.id} className='flex flex-col'>
                     <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>{villa.name}</h1>
                   </div>
                 ))}
@@ -551,6 +553,7 @@ function Middle() {
             </div>
           ))}
         </div>
+
 
 
 
