@@ -30,8 +30,6 @@ function Middle() {
 
 
 
-
-
   const [villaObj, setVillaObj] = useState([])
 
   useEffect(() => {
@@ -52,6 +50,15 @@ function Middle() {
       fetchVillaObj();
     }
   }, [fetch]);
+
+  const groupedVillas = villaObj.reduce((acc, villa) => {
+    if (!acc[villa.group]) {
+      acc[villa.group] = [];
+    }
+    acc[villa.group].push(villa);
+    return acc;
+  }, {});
+
 
 
   const [groupObj, setGroupObj] = useState([])
@@ -251,10 +258,10 @@ function Middle() {
 
       {
         villaModal && (
-          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
+          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50   bg-opacity-80 `}>
             <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
-              <div class="relative bg-white rounded-lg shadow ">
-                <div class="flex items-start justify-between p-4 border-b rounded-t ">
+              <div class="relative bg-white rounded-lg  border border-gray-300">
+                <div class="flex items-start justify-between p-4  rounded-t ">
                   <h3 class="text-xl font-semibold text-gray-900 ">
                     Create New Villa
                   </h3>
@@ -272,7 +279,7 @@ function Middle() {
                     value={villaName}
                     type="text"
                     placeholder="Saj Villa"
-                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 w-96"
                   />
 
                   <h1 className={`${poppins.className} text-lg font-bold my-5`}>Select Group</h1>
@@ -306,7 +313,7 @@ function Middle() {
       }
       {
         groupModal && (
-          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
+          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 border border-gray-700 bg-opacity-80 `}>
             <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
               <div class="relative bg-white rounded-lg shadow ">
                 <div class="flex items-start justify-between p-4 border-b rounded-t ">
@@ -327,7 +334,7 @@ function Middle() {
                     value={groupName}
                     type="text"
                     placeholder="Group 1"
-                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 w-96"
                   />
 
                   <div type="submit" onClick={() => createGroup()} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
@@ -347,7 +354,7 @@ function Middle() {
       }
       {
         editVilla && (
-          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
+          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 border border-gray-700 bg-opacity-80 `}>
             <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
               <div class="relative bg-white rounded-lg shadow ">
                 <div class="flex items-start justify-between p-4 border-b rounded-t ">
@@ -368,7 +375,7 @@ function Middle() {
                     value={villaName}
                     type="text"
                     placeholder="Saj Villa"
-                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 w-96"
                   />
                   <h1 className={`${poppins.className} text-lg font-medium`}>Enter Group Name</h1>
                   <input
@@ -376,7 +383,7 @@ function Middle() {
                     value={groupName}
                     type="text"
                     placeholder="Group 1"
-                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 w-96"
                   />
 
                   <div type="submit" onClick={() => editVillaRequest(editVilla.id)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
@@ -396,7 +403,7 @@ function Middle() {
       }
       {
         editGroup && (
-          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-80 `}>
+          <div className={`${poppins.className} fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-900 border border-gray-700 bg-opacity-80 `}>
             <div className="w-full max-w-2xl bg-white rounded-lg shadow ">
               <div class="relative bg-white rounded-lg shadow ">
                 <div class="flex items-start justify-between p-4 border-b rounded-t ">
@@ -417,7 +424,7 @@ function Middle() {
                     value={groupName}
                     type="text"
                     placeholder="Group 1"
-                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96"
+                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 w-96"
                   />
                   <div type="submit" onClick={() => editGroupRequest(editGroup.id, editGroup.name)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
                     <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
@@ -436,11 +443,11 @@ function Middle() {
       }
 
 
-      <div class="w-screen px-44 py-10 flex flex-col bg-black text-gray-200">
+      <div class="w-screen px-44 py-10 flex flex-col ">
         <div class="flex justify-between items-center ">
           <h1 class={`${poppins.className} text-4xl font-bold `}>Existing Groups</h1>
           <div class="flex justify-center items-center space-x-5">
-            <div onClick={() => { setGroupModal(true); setVillaModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-900 transition hover:ease-in hover:bg-gray-900  shadow-md rounded-lg  cursor-pointer'>
+            <div onClick={() => { setGroupModal(true); setVillaModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-300 transition hover:ease-in hover:bg-gray-300  shadow-md rounded-lg  cursor-pointer'>
               <h1 class={`${poppins.className} text-md  `}>Create New Group</h1>
             </div>
           </div>
@@ -453,7 +460,7 @@ function Middle() {
           {groupObj.map((group) => {
             return group.id !== 1 &&
               (
-                <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[250px] h-[150px] px-5 rounded-lg ">
+                <div class="flex flex-col justify-center border border-gray-300 shadow-md min-w-[250px] h-[150px] px-5 rounded-lg ">
                   <h1 class={`${poppins.className} text-xl font-bold cursor-pointer`}>{group.name}</h1>
 
                   <div className='flex justify-end items-end space-x-2'>
@@ -471,11 +478,11 @@ function Middle() {
           })}
         </div>
       </div>
-      <div class="w-screen px-44 py-10 flex flex-col bg-black text-gray-200">
+      <div class="w-screen px-44 py-10 flex flex-col ">
         <div class="flex justify-between items-center ">
           <h1 class={`${poppins.className} text-4xl font-bold `}>Existing Villas</h1>
           <div class="flex justify-center items-center space-x-5">
-            <div onClick={() => { setVillaModal(true); setGroupModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-900 transition hover:ease-in hover:bg-gray-900  shadow-md rounded-lg  cursor-pointer'>
+            <div onClick={() => { setVillaModal(true); setGroupModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-300 transition hover:ease-in hover:bg-gray-300  shadow-md rounded-lg  cursor-pointer'>
               <h1 class={`${poppins.className} text-md  `}>Create New Villa</h1>
             </div>
 
@@ -487,7 +494,7 @@ function Middle() {
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-14 ">
           {villaObj.map((villa) => (
-            <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[250px] h-[150px] px-5 rounded-lg ">
+            <div class="flex flex-col justify-center border border-gray-300 shadow-md min-w-[250px] h-[150px] px-5 rounded-lg ">
               <h1 class={`${poppins.className} text-xl font-bold cursor-pointer`}>{villa.name}</h1>
               <h1 class={`${poppins.className} text-xl font-bold cursor-pointer`}>{villa.group}</h1>
 
@@ -504,6 +511,47 @@ function Middle() {
             </div>
           ))}
         </div>
+
+
+      </div>
+      <div class="w-screen px-44 py-10 flex flex-col ">
+        <div class="flex justify-between items-center ">
+          <h1 class={`${poppins.className} text-4xl font-bold `}>View Groups-Villas</h1>
+          <div class="flex justify-center items-center space-x-5">
+            <div onClick={() => { setVillaModal(true); setGroupModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-300 transition hover:ease-in hover:bg-gray-300  shadow-md rounded-lg  cursor-pointer'>
+              <h1 class={`${poppins.className} text-md  `}>Create New Villa</h1>
+            </div>
+
+          </div>
+        </div>
+        {/* {Object.keys(groupedVillas).map((group) => (
+          <div key={group}>
+            <h2>{group}</h2>
+            <ul>
+              {groupedVillas[group].map((villa) => (
+                <li key={villa.id}>{villa.name}</li>
+              ))}
+            </ul>
+          </div>
+        ))} */}
+
+
+        {/* List of boxes */}
+        <div class="grid grid-cols-4 gap-10 py-14">
+          {Object.keys(groupedVillas).map((group) => (
+            <div key={group} className="flex flex-col justify-center border border-gray-300 shadow-md min-w-[250px] h-[150px] px-5 rounded-lg space-y-2">
+              <h1 class={`${poppins.className} text-xl font-bold cursor-pointer`}>{group}</h1>
+              <div className="flex flex-wrap gap-4">
+                {groupedVillas[group].map((villa) => (
+                  <div key={villa.id} className='flex flex-col ' >
+                    <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>{villa.name}</h1>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
 
 
       </div>

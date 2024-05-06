@@ -38,8 +38,9 @@ function VillaMiddle() {
   const [contact, setContact] = useState(null)
 
   const [fetch, setFetch] = useState(false)
+  const [villa, setVilla] = useState(null)
 
-  const [bookingObj, setBookingObj] = useState([])
+  const [bookingsObj, setBookingsObj] = useState([])
 
   useEffect(() => {
     if (!fetch) {
@@ -48,26 +49,37 @@ function VillaMiddle() {
         let v
         if (typeof window !== 'undefined') {
           v = localStorage.getItem("villaName");
+          setVilla(v)
         }
-        const q = query(
-          collection(db, "bookings"),
-          where("villa", "==", v),
-        );
 
-        const querySnapshot = await getDocs(q);
-        const fetchedBookings = [];
+        
 
-        querySnapshot.forEach((doc) => {
-          fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
-        });
+        // const q = query(
+        //   collection(db, "bookings"),
+        //   where("villa", "==", v),
+        // );
 
-        setBookingObj(fetchedBookings);
-        setFetch(true);
+        // const querySnapshot = await getDocs(q);
+        const querySnapshot = await getDocs(collection(db, "bookings"));
+
+        if (querySnapshot.empty) {
+          alert("Not found");
+        } else {
+          const fetchedBookings = [];
+
+          querySnapshot.forEach((doc) => {
+            fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, total: doc.data().total, villa: doc.data().villa });
+          });
+
+          console.log(fetchedBookings)
+          setBookingsObj(fetchedBookings);
+          setFetch(true);
+        }
       }
 
-      fetchBookingObj();
-    }
-  }, [fetch]);
+        fetchBookingObj();
+      }
+    }, [fetch]);
 
 
 
@@ -165,7 +177,7 @@ function VillaMiddle() {
         pauseOnHover
         theme="light"
       />
-      <div className='w-screen h-screen flex flex-col justify-start items-center bg-black text-gray-200'>
+      <div className='w-screen h-screen flex flex-col justify-start items-center '>
 
 
         <div class="w-screen px-40 py-10 flex flex-col ">
@@ -177,8 +189,11 @@ function VillaMiddle() {
 
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-10 ">
-          {bookingObj.length > 0 ? (
-            bookingObj.map((booking) => (
+          {bookingsObj.length > 0 ? 
+          
+          (
+            bookingsObj
+            .map((booking) => (
               <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
                 <h1 class={`${inter.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
                 <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>

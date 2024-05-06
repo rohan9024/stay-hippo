@@ -59,7 +59,7 @@ function page() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7 }}
-                className="px-10 lg:px-28 pt-10 pb-20 bg-black text-gray-200 h-screen w-screen"
+                className="px-10 lg:px-28 pt-10 pb-20  h-screen w-screen"
             >
 
                 <div className={`${poppins.className} flex justify-start items-center space-x-2 pb-3 `}>
@@ -67,7 +67,7 @@ function page() {
                     <img src='/back.png' alt="back" className='w-5 h-5 ' />
 
 
-                    <Link href="/admin-panel" className='text-lg text-gray-200 cursor-pointer hover:ease-in transition  hover:text-gray-200'>Back</Link>
+                    <Link href="/admin-panel" className='text-lg  cursor-pointer hover:ease-in transition  hover:text-gray-700'>Back</Link>
 
 
                 </div>
@@ -86,7 +86,7 @@ function page() {
                                 pathname: `/view-villas/${group.name}`,
                                 query: { groupName: group.name, groupID: group.id },
                             }}
-                            className="px-12 py-4 lg:px-0 lg:py-0 flex justify-center items-center lg:w-[200px] lg:h-[200px] shadow-2xl rounded-xl bg-blue-700 hover:cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
+                            className="px-12 py-4 lg:px-0 lg:py-0 flex justify-center items-center lg:w-[200px] lg:h-[200px] shadow-2xl rounded-xl bg-blue-400 hover:cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
                         >
                             <h1 className={`${poppins.className} text-center lg:text-3xl text-2xl`}>
                                 {group.name}

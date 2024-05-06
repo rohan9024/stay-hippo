@@ -145,10 +145,10 @@ function page() {
           </div>
         )
       }
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }} className='px-10 md:px-28 pt-10 bg-black text-gray-200 h-screen w-screen'>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }} className='px-10 md:px-28 pt-10  h-screen w-screen'>
         <div className={`${poppins.className} flex justify-start items-center space-x-2 pb-10 `}>
           <img src='/back.png' alt="back" className='w-5 h-5 ' />
-          <Link href="/view-villas" className='text-lg text-gray-200 cursor-pointer hover:ease-in transition  hover:text-gray-400'>Back</Link>
+          <Link href="/view-villas" className='text-lg  cursor-pointer hover:ease-in transition  hover:text-gray-400'>Back</Link>
         </div>
         <div className={`${poppins.className} flex justify-between items-center`}>
           <h1 className='text-2xl lg:text-4xl font-semibold tracking-wide '>Blacklisted Villas</h1>
@@ -161,8 +161,8 @@ function page() {
           </div>
         </div>
         <div class={`${poppins.className} relative overflow-x-auto mt-10`}>
-          <table class="w-full text-sm text-left text-gray-200 ">
-            <thead class="text-md text-gray-200  bg-black border border-gray-800   ">
+          <table class="w-full text-sm text-left  ">
+            <thead class="text-md border border-gray-800   ">
               <tr>
                 <th scope="col" class="px-6 py-3">
                   Sr. No.
@@ -180,15 +180,15 @@ function page() {
               allVillasObj.map((villa) => (
 
                 <tbody>
-                  <tr class="bg-black border border-gray-800  ">
-                    <th scope="row" class="w-24 px-6 py-4 text-center font-medium text-gray-200 whitespace-nowrap ">
+                  <tr class=" border border-gray-800  ">
+                    <th scope="row" class="w-24 px-6 py-4 text-center font-medium  whitespace-nowrap ">
                       <h1>{count++}</h1>
                     </th>
-                    <td class="px-6 py-4 text-gray-200">
+                    <td class="px-6 py-4 ">
                       <h1 className='truncate w-56'>{villa.name}</h1>
                     </td>
 
-                    <td class="px-6 py-4 text-gray-200">
+                    <td class="px-6 py-4 ">
                       <div className='flex justify-around items-center w-[250px] space-x-4'>
                         <div onClick={() => setDeleteModal(villa)} className=' w-32 flex justify-around items-center cursor-pointer' >
                           <img src='/delete.png' alt="remove" className='w-5 h-5 ' />

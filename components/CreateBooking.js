@@ -96,7 +96,7 @@ function CreateBooking() {
 
       today = dd + '/' + mm + '/' + yyyy;
 
-   
+
       try {
         await addDoc(collection(db, 'bookings'), {
           name: name,
@@ -222,8 +222,8 @@ function CreateBooking() {
         pauseOnHover
         theme="light"
       />
-      <div className='w-screen flex flex-col justify-center items-center bg-black text-gray-200'>
-        <div className='flex flex-col justify-center items-center p-20  my-20 rounded-lg space-y-5 border border-gray-900  shadow-lg '>
+      <div className='w-screen flex flex-col justify-center items-center text-black'>
+        <div className='flex flex-col justify-center items-center p-20  my-20 rounded-lg space-y-5 border border-gray-300  shadow-lg '>
           <h1 className={`${raleway.className} text-4xl font-bold mb-10`}>Create Booking </h1>
           <form className='flex flex-col justify-start items-start space-y-10 '>
 
@@ -259,7 +259,7 @@ function CreateBooking() {
                 value={name}
                 type="text"
                 placeholder="Rakesh Patil"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-900 bg-transparent w-96 rounded-lg"
+                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent w-96 rounded-lg"
               />
             </div>
             <div className=" flex flex-col justify-start items-start space-y-4">
@@ -269,18 +269,24 @@ function CreateBooking() {
                 value={contact}
                 type="text"
                 placeholder="9134244728"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-900 bg-transparent  w-96 rounded-lg"
+                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
               />
             </div>
             <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Budget Per Person</h1>
+              <h1 className={`${inter.className} text-md font-bold `}>Enter Budget Per Person (Range: 10k-20k)</h1>
               <input
-                onChange={(e) => setBudgetPerPerson(e.target.value)}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  if (!isNaN(value) && value >= 10000 && value <= 20000) {
+                    setBudgetPerPerson(value);
+                  }
+                }}
                 value={budgetPerPerson}
                 type="number"
                 placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-900 bg-transparent  w-96 rounded-lg"
+                className="placeholder:text-gray-500 px-5 py-2 outline-none border border-gray-300 bg-transparent w-96 rounded-lg"
               />
+
             </div>
             <div className=" flex flex-col justify-start items-start space-y-4">
               <h1 className={`${inter.className} text-md font-bold `}>Enter No. Of People</h1>
@@ -289,7 +295,7 @@ function CreateBooking() {
                 value={people}
                 type="number"
                 placeholder="0"
-                className="placeholder:text-gray-500 px-5 py-2 outline-none border border-gray-900 bg-transparent appearance-none w-96 rounded-lg"
+                className="placeholder:text-gray-500 px-5 py-2 outline-none border border-gray-300 bg-transparent appearance-none w-96 rounded-lg"
               />
             </div>
             <div className=" flex flex-col justify-start items-start space-y-4">
@@ -299,7 +305,7 @@ function CreateBooking() {
                 value={days}
                 type="number"
                 placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-900 bg-transparent  w-96 rounded-lg"
+                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
               />
             </div>
             <div className="flex flex-col justify-start items-start space-y-4">
@@ -308,7 +314,7 @@ function CreateBooking() {
               <select
                 value={villaName}
                 onChange={handleVillaDropdown}
-                className="block w-96 py-2 px-5 leading-tight border border-gray-900 bg-black text-white focus:outline-none cursor-pointer"
+                className="block w-96 py-2 px-5 leading-tight border border-gray-300   focus:outline-none cursor-pointer"
               >
                 {allVillasObj.map((villa, index) => (
                   <option key={index} value={villa.name}>
@@ -320,13 +326,12 @@ function CreateBooking() {
             </div>
 
 
-
-            <div onClick={createBooking} type="submit" class="cursor-pointer relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-white border-2 border-gray-900 rounded-full hover:text-black group hover:bg-gray-200 w-72 mx-auto">
-              <span class="absolute left-0 block w-full h-0 transition-all bg-white opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+            <div type="submit" onClick={createBooking} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border border-gray-800 rounded-full hover:text-white group hover:bg-gray-600">
+              <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
               <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
               </span>
-              <span class="relative text-center text-md">Book Now</span>
+              <span class="relative">Submit</span>
             </div>
 
           </form>
@@ -341,7 +346,7 @@ function CreateBooking() {
             <select
               value={v2}
               onChange={handleVilla2Dropdown}
-              className="block w-96 py-2 px-5 leading-tight border border-gray-900 bg-black text-white focus:outline-none cursor-pointer"
+              className="block w-96 py-2 px-5 leading-tight border border-gray-300 focus:outline-none cursor-pointer"
             >
               {allVillasObj.map((villa, index) => (
                 <option key={index} value={villa.name}>
@@ -350,8 +355,8 @@ function CreateBooking() {
               ))}
             </select>
 
-            <div class="px-4 py-2 cursor-pointer border border-gray-900 rounded-xl bg-black hover:bg-slate-900" onClick={() => findBookings()} >
-              <h1 class={`${inter.className} text-lg font-medium text-white `}>Search</h1>
+            <div class="px-4 py-2 cursor-pointer border border-gray-900 rounded-xl hover:bg-gray-300 " onClick={() => findBookings()} >
+              <h1 class={`${inter.className} text-lg font-medium  `}>Search</h1>
             </div>
           </div>
         </div>
@@ -360,7 +365,7 @@ function CreateBooking() {
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-10 ">
           {bookingObj.map((booking) => (
-            <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
+            <div class="flex flex-col justify-center border border-gray-300 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
               <h1 class={`${inter.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
               <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>
               <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. Of People: {booking.people}</h1>

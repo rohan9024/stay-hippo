@@ -9,7 +9,7 @@ const poppins = Poppins({
 
 function Homepage() {
     return (
-        <div className="flex flex-col h-screen bg-black text-gray-200">
+        <div className="flex flex-col h-screen ">
             <div className="w-screen py-6 px-10 flex justify-between items-center">
                 <Link href="/" className={`${poppins.className} text-lg font-medium cursor-pointer`}>Stay Hippo</Link>
             </div>
@@ -17,15 +17,15 @@ function Homepage() {
             <div className="flex flex-col justify-center items-center flex-grow space-y-10">
                 <h1 className={`${poppins.className} text-3xl font-bold`}>Select one to proceed</h1>
                 <div className="flex justify-center items-center space-x-10">
-                    <Link href="/admin-login" className="border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition hover:bg-gray-900">
+                    <Link href="/admin-login" className="border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition hover:bg-gray-300">
                         <h1 className={`${poppins.className} text-lg font-medium cursor-pointer rounded-2xl`}>Admin Login</h1>
                     </Link>
-                    <Link href="/villa-login" className="border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition hover:bg-gray-900">
+                    <Link href="/villa-login" className="border border-gray-900 shadow-lg px-10 py-2 cursor-pointer hover:ease-in transition hover:bg-gray-300">
                         <h1 className={`${poppins.className} text-lg font-medium cursor-pointer rounded-2xl`}>Villa Login</h1>
                     </Link>
                 </div>
             </div>
-            <div className="w-screen py-4 flex justify-center items-center bg-black text-gray-200 border-t border-gray-900 ">
+            <div className="w-screen py-4 flex justify-center items-center border-t border-gray-900 ">
                 <div className="flex flex-col items-center">
                     <h1 className={`${poppins.className} text-md font-medium`}>Copyright © 2024, Stay Hippo, All rights reserved.</h1>
 

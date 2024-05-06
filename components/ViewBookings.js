@@ -83,7 +83,7 @@ function ViewBookings() {
     }
 
     return (
-        <div className=' flex   bg-black text-gray-200 w-screen h-screen'>
+        <div className=' flex w-screen h-screen'>
 
             <div class="w-screen px-32 py-10 flex flex-col ">
 
@@ -93,8 +93,8 @@ function ViewBookings() {
                 </div>
 
                 <div class={`${poppins.className} relative overflow-x-auto mt-10`}>
-                    <table class="w-1/2 text-sm text-left text-gray-500 ">
-                        <thead class="text-md text-gray-200  bg-black border border-gray-800  ">
+                    <table class="w-1/2 text-sm text-left  ">
+                        <thead class="text-md border border-gray-800  ">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     Sr. No.
@@ -112,12 +112,12 @@ function ViewBookings() {
                             allVillasObj.map((villa) => (
 
                                 <tbody>
-                                    <tr class="bg-black border border-gray-800 ">
-                                        <th scope="row" class="w-24 px-6 py-4 text-center font-medium text-gray-200 whitespace-nowrap ">
+                                    <tr class=" border border-gray-800 ">
+                                        <th scope="row" class="w-24 px-6 py-4 text-center font-medium  whitespace-nowrap ">
                                             <h1>{vcount++}</h1>
                                         </th>
                                         <td class="px-6 py-4">
-                                            <h1 className='truncate w-36 text-gray-200'>{villa.name}</h1>
+                                            <h1 className='truncate w-36 '>{villa.name}</h1>
                                         </td>
 
                                         <td class="px-6 py-4">
@@ -139,13 +139,13 @@ function ViewBookings() {
                     viewBooking && (
                         <>
 
-                            <div class="flex justify-between items-center pt-20 bg-black text-gray-200">
+                            <div class="flex justify-between items-center pt-20 ">
                                 <h1 class={`${poppins.className} text-4xl font-bold `}>Existing Bookings</h1>
                             </div>
 
                             <div class={`${poppins.className} relative overflow-x-auto mt-10`}>
-                                <table class="w-full text-sm text-left text-gray-200 ">
-                                    <thead class="text-md text-gray-200  bg-black border border-gray-800  ">
+                                <table class="w-full text-sm text-left  ">
+                                    <thead class="text-md border border-gray-800  ">
                                         <tr>
                                             <th scope="col" class="px-6 py-3">
                                                 Sr. No.
@@ -178,30 +178,30 @@ function ViewBookings() {
                                         bookingsObj.map((booking) => (
 
                                             <tbody>
-                                                <tr class="bg-black border border-gray-800  ">
-                                                    <th scope="row" class="w-24 px-6 py-4 text-center font-medium text-gray-200 whitespace-nowrap ">
+                                                <tr class=" border border-gray-800  ">
+                                                    <th scope="row" class="w-24 px-6 py-4 text-center font-medium  whitespace-nowrap ">
                                                         <h1>{bcount++}</h1>
                                                     </th>
-                                                    <td class="px-6 py-4 text-gray-200">
+                                                    <td class="px-6 py-4 ">
                                                         <h1 className='truncate w-36'>{booking.name}</h1>
                                                     </td>
-                                                    <td class="px-6 py-4 text-gray-200">
+                                                    <td class="px-6 py-4 ">
                                                         <h1 className='truncate w-20'>{booking.contact}</h1>
                                                     </td>
-                                                    <td class="px-6 py-4 text-gray-200">
+                                                    <td class="px-6 py-4 ">
                                                         <h1 className='truncate w-20'>{booking.checkIn}</h1>
                                                     </td>
-                                                    <td class="px-6 py-4 text-gray-200">
+                                                    <td class="px-6 py-4 ">
                                                         <h1 className='truncate w-20'>{booking.checkOut}</h1>
                                                     </td>
-                                                    <td class="px-6 py-4 text-gray-200">
+                                                    <td class="px-6 py-4 ">
                                                         <h1 className='truncate w-20'>{booking.budgetPerPerson}</h1>
                                                     </td>
-                                                    <td class="px-6 py-4 text-gray-200">
+                                                    <td class="px-6 py-4 ">
                                                         <h1 className='truncate w-20'>{booking.total}</h1>
                                                     </td>
 
-                                                    <td class="px-6 py-4 text-gray-200">
+                                                    <td class="px-6 py-4 ">
                                                         <div className='flex justify-around items-center w-[130px] space-x-4'>
                                                             <div onClick={() => deleteBooking(booking)} className=' w-32 flex justify-around items-center cursor-pointer' >
                                                                 <img src='/delete.png' alt="remove" className='w-5 h-5 ' />
