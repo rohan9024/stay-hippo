@@ -118,7 +118,7 @@ function page() {
 
             try {
                 await addDoc(collection(db, 'villaAccounts'), {
-                    name: villa,
+                    name: villa.toLowerCase(),
                     username: username,
                     password: password,
                     location: location,
@@ -139,7 +139,7 @@ function page() {
 
         try {
             await updateDoc(docRef, {
-                name: editVilla ? editVilla : account.name ,
+                name: editVilla ? editVilla.toLowerCase() : account.name ,
                 location: location ? location : account.location,
                 username: username ? username : account.username,
                 password: password ? password : account.password ,

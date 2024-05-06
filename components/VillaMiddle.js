@@ -52,15 +52,15 @@ function VillaMiddle() {
           setVilla(v)
         }
 
-        
 
-        // const q = query(
-        //   collection(db, "bookings"),
-        //   where("villa", "==", v),
-        // );
 
-        // const querySnapshot = await getDocs(q);
-        const querySnapshot = await getDocs(collection(db, "bookings"));
+        const q = query(
+          collection(db, "bookings"),
+          where("villa", "==", v),
+        );
+
+        const querySnapshot = await getDocs(q);
+        // const querySnapshot = await getDocs(collection(db, "bookings"));
 
         if (querySnapshot.empty) {
           alert("Not found");
@@ -80,6 +80,33 @@ function VillaMiddle() {
         fetchBookingObj();
       }
     }, [fetch]);
+
+
+
+  // useEffect(() => {
+  //   async function findBookings() {
+
+
+  //     const q = query(
+  //       collection(db, "bookings"),
+  //       where("villa", "==", "saj villa"),
+  //     );
+
+  //     const querySnapshot = await getDocs(q);
+  //     const fetchedBookings = [];
+
+  //     querySnapshot.forEach((doc) => {
+  //       fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
+  //     });
+
+  //     console.log()
+
+  //     setBookingsObj(fetchedBookings);
+
+  //   }
+  //   findBookings();
+
+  // }, [fetch])
 
 
 
@@ -189,38 +216,38 @@ function VillaMiddle() {
 
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-10 ">
-          {bookingsObj.length > 0 ? 
-          
-          (
-            bookingsObj
-            .map((booking) => (
-              <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
-                <h1 class={`${inter.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
-                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>
-                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. Of People: {booking.people}</h1>
-                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Budget Per Person: {booking.budgetPerPerson}</h1>
-                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. of Days: {booking.days}</h1>
-                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Total: {booking.total}</h1>
-                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check In: {booking.checkIn}</h1>
-                <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check Out: {booking.checkOut}</h1>
+          {bookingsObj.length > 0 ?
 
-                <div className='flex justify-end items-end space-x-2 '>
-                  {booking.checkOut ? null : (
-                    <div class="mt-2 cursor-pointer " onClick={() => checkout(booking)} >
-                      <img src="/accept.png" alt="checkout" className='w-7 h-7' />
+            (
+              bookingsObj
+                .map((booking) => (
+                  <div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
+                    <h1 class={`${inter.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
+                    <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>
+                    <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. Of People: {booking.people}</h1>
+                    <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Budget Per Person: {booking.budgetPerPerson}</h1>
+                    <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. of Days: {booking.days}</h1>
+                    <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Total: {booking.total}</h1>
+                    <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check In: {booking.checkIn}</h1>
+                    <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check Out: {booking.checkOut}</h1>
+
+                    <div className='flex justify-end items-end space-x-2 '>
+                      {booking.checkOut ? null : (
+                        <div class="mt-2 cursor-pointer " onClick={() => checkout(booking)} >
+                          <img src="/accept.png" alt="checkout" className='w-7 h-7' />
+                        </div>
+                      )}
+                      <div class="mt-2 cursor-pointer " onClick={() => deleteBooking(booking)} >
+                        <img src="/delete.png" alt="delete" className='w-7 h-7' />
+                      </div>
                     </div>
-                  )}
-                  <div class="mt-2 cursor-pointer " onClick={() => deleteBooking(booking)} >
-                    <img src="/delete.png" alt="delete" className='w-7 h-7' />
                   </div>
-                </div>
+                ))
+            ) : (
+              <div className='text-left w-screen px-44 '>
+                <h1 class={`${inter.className} text-xl font-medium  cursor-pointer `}>No Bookings Found</h1>
               </div>
-            ))
-          ) : (
-            <div className='text-left w-screen px-44 '>
-              <h1 class={`${inter.className} text-xl font-medium  cursor-pointer `}>No Bookings Found</h1>
-            </div>
-          )}
+            )}
 
         </div>
 
