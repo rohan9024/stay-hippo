@@ -83,7 +83,7 @@ function ViewBookings() {
     }
 
     return (
-        <div className=' flex w-screen h-screen'>
+        <div className=' flex w-screen h-auto'>
 
             <div class="w-screen px-32 py-10 flex flex-col ">
 

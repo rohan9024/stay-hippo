@@ -207,7 +207,7 @@ function VillaMiddle() {
         pauseOnHover
         theme="light"
       />
-      <div className='w-screen h-screen flex flex-col justify-start items-center '>
+      <div className='w-screen h-auto flex flex-col justify-start items-center '>
 
 
         {/* <div class="w-screen px-40 py-10 flex flex-col ">
