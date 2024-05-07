@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Poppins } from 'next/font/google';
+import { Poppins, Raleway } from 'next/font/google';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '../contexts/AuthContext';
@@ -9,7 +9,10 @@ const poppins = Poppins({
     subsets: ['latin'],
 });
 
-
+const raleway = Raleway({
+    weight: ['100', '400', '500', '600', '700', '800'],
+    subsets: ['latin'],
+});
 function VillaNavbar() {
 
     const { villa, setVilla } = useContext(AuthContext);
@@ -27,7 +30,7 @@ function VillaNavbar() {
     return (
         <>
             <div class="w-screen py-6 px-10 flex justify-between items-center">
-                <Link href="/" class={`${poppins.className} text-lg font-medium cursor-pointer`}>Stay Hippo</Link>
+            <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
                 <div class="flex justify-center items-center space-x-10">
                     <Link href="/villa-panel" class={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Villa Panel</Link>
                     <div onClick={() => {

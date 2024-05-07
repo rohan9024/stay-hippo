@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
-import { Poppins } from 'next/font/google';
+import { Poppins, Raleway } from 'next/font/google';
 import Link from 'next/link';
 
 const poppins = Poppins({
     weight: ['100', '400', '500', '600', '700', '800'],
     subsets: ['latin'],
 });
-
+const raleway = Raleway({
+    weight: ['100', '400', '500', '600', '700', '800'],
+    subsets: ['latin'],
+});
 
 function Navbar() {
 
     return (
         <>
             <div class="w-screen py-6 px-10 flex justify-between items-center ">
-                <Link href="/" class={`${poppins.className} text-lg font-medium cursor-pointer`}>Stay Hippo</Link>
+            <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
                 <div class="flex justify-center items-center space-x-10">
                     <Link href="/admin-panel" class={`${poppins.className} text-sm font-medium cursor-pointer  hover:text-gray-400`}>Admin Panel</Link>
                     <Link href="/create-bookings" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>Create Bookings</Link>

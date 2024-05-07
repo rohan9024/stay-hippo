@@ -9,7 +9,7 @@ const poppins = Poppins({
 function VillaFooter() {
     return (
         <div class="w-screen py-4 flex justify-center items-center  border-t border-gray-900  bottom-0 fixed">
-            {/* <h1 class={`${poppins.className} text-lg font-bold `}>Copyright © 2024, Stay Hippo, All rights reserved. </h1> */}
+            {/* <h1 class={`${poppins.className} text-lg font-bold `}>Copyright © 2024, Luna, All rights reserved. </h1> */}
             <div className='flex justify-center items-center space-x-4 mt-3'>
                 <h1 className={`${poppins.className} text-sm font-medium`}>For any queries,</h1>
                 <div class=" cursor-pointer flex items-center " >

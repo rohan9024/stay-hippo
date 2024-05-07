@@ -150,7 +150,7 @@ function page() {
         theme="light"
       />
       <div class="w-screen py-6 px-10 flex justify-between items-center ">
-        <Link href="/" class={`${poppins.className} text-lg font-medium cursor-pointer`}>Stay Hippo</Link>
+      <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
       </div>
       <div className='bg-gray-900 h-[1px] ' />
       <div>

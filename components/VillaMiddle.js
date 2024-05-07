@@ -192,6 +192,8 @@ function VillaMiddle() {
     window.location.reload();
   }
 
+  const totalBookings = bookingsObj.length;
+  let totalSum = 0;
 
   return (
     <>
@@ -281,6 +283,9 @@ function VillaMiddle() {
                   Budget Per Person
                 </th>
                 <th scope="col" class="px-6 py-3">
+                  People
+                </th>
+                <th scope="col" class="px-6 py-3">
                   Total
                 </th>
 
@@ -290,33 +295,38 @@ function VillaMiddle() {
               </tr>
             </thead>
             {
-              bookingsObj.map((booking) => (
+              bookingsObj.map((booking) => {
+                totalSum += booking.total;
 
-                <tbody>
-                  <tr class=" border border-gray-800  ">
-                    <th scope="row" class="w-24 px-6 py-4 text-center font-medium  whitespace-nowrap ">
-                      <h1>{bcount++}</h1>
-                    </th>
-                    <td class="px-6 py-4 ">
-                      <h1 className='truncate w-36'>{booking.name}</h1>
-                    </td>
-                    <td class="px-6 py-4 ">
-                      <h1 className='truncate w-36'>{booking.contact}</h1>
-                    </td>
-                    <td class="px-6 py-4 ">
-                      <h1 className='truncate w-20'>{booking.checkIn}</h1>
-                    </td>
-                    <td class="px-6 py-4 ">
-                      <h1 className='truncate w-20'>{booking.checkOut}</h1>
-                    </td>
-                    <td class="px-6 py-4 ">
-                      <h1 className='truncate w-20'>{booking.budgetPerPerson}</h1>
-                    </td>
-                    <td class="px-6 py-4 ">
-                      <h1 className='truncate w-20'>{booking.total}</h1>
-                    </td>
+                return (
+                  <tbody>
+                    <tr class=" border border-gray-800  ">
+                      <th scope="row" class="w-24 px-6 py-4 text-center font-medium  whitespace-nowrap ">
+                        <h1>{bcount++}</h1>
+                      </th>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-36'>{booking.name}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-36'>{booking.contact}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.checkIn}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.checkOut}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.budgetPerPerson}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.people}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.total}</h1>
+                      </td>
 
-                    {/* <td class="px-6 py-4 ">
+                      {/* <td class="px-6 py-4 ">
                       <div className='flex justify-around items-center w-[130px] space-x-4'>
                         <div onClick={() => deleteBooking(booking)} className=' w-32 flex justify-around items-center cursor-pointer' >
                           <img src='/delete.png' alt="remove" className='w-5 h-5 ' />
@@ -325,10 +335,19 @@ function VillaMiddle() {
 
                       </div>
                     </td> */}
-                  </tr>
-                </tbody>
-              ))
+                    </tr>
+                  </tbody>
+                )
+              })
             }
+            <tbody>
+              <tr>
+                <td colSpan="8" className="px-6 py-4 text-right font-bold">
+                  Total Sum: {totalSum}
+                </td>
+              </tr>
+            </tbody>
+
           </table>
         </div>
 
