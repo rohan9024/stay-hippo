@@ -42,6 +42,9 @@ function VillaMiddle() {
 
   const [bookingsObj, setBookingsObj] = useState([])
 
+
+  var bcount = 1;
+
   useEffect(() => {
     if (!fetch) {
       const fetchBookingObj = async () => {
@@ -77,9 +80,9 @@ function VillaMiddle() {
         }
       }
 
-        fetchBookingObj();
-      }
-    }, [fetch]);
+      fetchBookingObj();
+    }
+  }, [fetch]);
 
 
 
@@ -207,15 +210,15 @@ function VillaMiddle() {
       <div className='w-screen h-screen flex flex-col justify-start items-center '>
 
 
-        <div class="w-screen px-40 py-10 flex flex-col ">
+        {/* <div class="w-screen px-40 py-10 flex flex-col ">
           <div class="flex justify-between items-center ">
             <h1 class={`${inter.className} text-4xl font-bold `}>Existing Bookings</h1>
           </div>
-        </div>
+        </div> */}
 
 
         {/* List of boxes */}
-        <div class="grid grid-cols-4 gap-10 py-10 ">
+        {/* <div class="grid grid-cols-4 gap-10 py-10 ">
           {bookingsObj.length > 0 ?
 
             (
@@ -249,9 +252,85 @@ function VillaMiddle() {
               </div>
             )}
 
+        </div> */}
+
+        <div class="flex justify-between items-center pt-20 ">
+          <h1 class={`${inter.className} text-4xl font-bold `}>Existing Bookings</h1>
         </div>
 
+        <div class={`${inter.className} relative overflow-x-auto mt-10`}>
+          <table class="w-full text-sm text-left  ">
+            <thead class="text-md border border-gray-800  ">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Sr. No.
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Contact
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Check In
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Check Out
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Budget Per Person
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Total
+                </th>
 
+                {/* <th scope="col" class="px-6 py-3">
+                  Options
+                </th> */}
+              </tr>
+            </thead>
+            {
+              bookingsObj.map((booking) => (
+
+                <tbody>
+                  <tr class=" border border-gray-800  ">
+                    <th scope="row" class="w-24 px-6 py-4 text-center font-medium  whitespace-nowrap ">
+                      <h1>{bcount++}</h1>
+                    </th>
+                    <td class="px-6 py-4 ">
+                      <h1 className='truncate w-36'>{booking.name}</h1>
+                    </td>
+                    <td class="px-6 py-4 ">
+                      <h1 className='truncate w-36'>{booking.contact}</h1>
+                    </td>
+                    <td class="px-6 py-4 ">
+                      <h1 className='truncate w-20'>{booking.checkIn}</h1>
+                    </td>
+                    <td class="px-6 py-4 ">
+                      <h1 className='truncate w-20'>{booking.checkOut}</h1>
+                    </td>
+                    <td class="px-6 py-4 ">
+                      <h1 className='truncate w-20'>{booking.budgetPerPerson}</h1>
+                    </td>
+                    <td class="px-6 py-4 ">
+                      <h1 className='truncate w-20'>{booking.total}</h1>
+                    </td>
+
+                    {/* <td class="px-6 py-4 ">
+                      <div className='flex justify-around items-center w-[130px] space-x-4'>
+                        <div onClick={() => deleteBooking(booking)} className=' w-32 flex justify-around items-center cursor-pointer' >
+                          <img src='/delete.png' alt="remove" className='w-5 h-5 ' />
+                          <h1>Delete Record</h1>
+                        </div>
+
+                      </div>
+                    </td> */}
+                  </tr>
+                </tbody>
+              ))
+            }
+          </table>
+        </div>
 
 
       </div>

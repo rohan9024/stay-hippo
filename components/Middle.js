@@ -554,9 +554,6 @@ function Middle() {
           ))}
         </div>
 
-
-
-
       </div>
     </>
 
