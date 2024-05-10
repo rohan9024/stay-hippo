@@ -34,6 +34,8 @@ function CreateBooking() {
   const [name, setName] = useState(null)
   const [people, setPeople] = useState(null)
   const [days, setDays] = useState(null)
+  const [checkOut, setCheckOut] = useState(null)
+  const [checkIn, setCheckIn] = useState(null)
   const [budgetPerPerson, setBudgetPerPerson] = useState(null)
   const [contact, setContact] = useState(null)
   const [minimum, setMinimum] = useState()
@@ -89,7 +91,7 @@ function CreateBooking() {
 
   const createBooking = async () => {
 
-    if (name && contact && people && days && minimum && maximum && group) {
+    if (name && contact && people && days && minimum && maximum && group && checkOut && checkIn) {
       const total = maximum * days;
 
       let today = new Date();
@@ -114,6 +116,8 @@ function CreateBooking() {
           name: name,
           contact: contact,
           group: group,
+          checkIn: checkIn,
+          checkOut: checkOut,
           maximum: parseInt(maximum),
           minimum: parseInt(minimum),
           enquiryDate: today,
@@ -361,6 +365,26 @@ function CreateBooking() {
                 value={maximum}
                 type="number"
                 placeholder="0"
+                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+              />
+            </div>
+            <div className=" flex flex-col justify-start items-start space-y-4">
+              <h1 className={`${inter.className} text-md font-bold `}>Enter Check In</h1>
+              <input
+                onChange={(e) => setCheckIn(e.target.value)}
+                value={checkIn}
+                type="text"
+                // placeholder="23/04/2023"
+                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+              />
+            </div>
+            <div className=" flex flex-col justify-start items-start space-y-4">
+              <h1 className={`${inter.className} text-md font-bold `}>Enter Check Out</h1>
+              <input
+                onChange={(e) => setCheckOut(e.target.value)}
+                value={checkOut}
+                type="text"
+                // placeholder="0"
                 className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
               />
             </div>

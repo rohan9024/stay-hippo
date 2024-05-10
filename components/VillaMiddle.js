@@ -90,7 +90,7 @@ function VillaMiddle() {
               const fetchedBookings = [];
 
               querySnapshot.forEach((doc) => {
-                fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, enquiryDate: doc.data().enquiryDate });
+                fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, enquiryDate: doc.data().enquiryDate,checkIn: doc.data().checkIn ,checkOut: doc.data().checkOut  });
               });
 
               console.log(fetchedBookings)
@@ -304,6 +304,12 @@ function VillaMiddle() {
                   Budget
                 </th>
                 <th scope="col" class="px-6 py-3">
+                  Check In
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Check Out
+                </th>
+                <th scope="col" class="px-6 py-3">
                   People
                 </th>
                 {/* <th scope="col" class="px-6 py-3">
@@ -337,6 +343,12 @@ function VillaMiddle() {
             
                       <td class="px-6 py-4 ">
                         <h1 className='truncate w-20'>{booking.maximum}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.checkIn}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.checkOut}</h1>
                       </td>
                       <td class="px-6 py-4 ">
                         <h1 className='truncate w-20'>{booking.people}</h1>
