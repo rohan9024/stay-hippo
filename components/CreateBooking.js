@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
-import { Inter, Raleway, VT323 } from 'next/font/google';
+import { Gruppo, Inter, Raleway, VT323 } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from "../contexts/AuthContext"
 import DatePicker from 'react-datepicker';
@@ -36,8 +36,11 @@ function CreateBooking() {
   const [days, setDays] = useState(null)
   const [budgetPerPerson, setBudgetPerPerson] = useState(null)
   const [contact, setContact] = useState(null)
+  const [minimum, setMinimum] = useState()
+  const [maximum, setMaximum] = useState()
   const [villaName, setVillaName] = useState('N/A')
   const [v2, setv2] = useState('N/A')
+  const [group, setGroup] = useState("N/A")
 
   const [fetch, setFetch] = useState(false)
 
@@ -86,8 +89,8 @@ function CreateBooking() {
 
   const createBooking = async () => {
 
-    if (name && contact && people && budgetPerPerson && days) {
-      const total = budgetPerPerson * days;
+    if (name && contact && people && days && minimum && maximum && group) {
+      const total = maximum * days;
 
       let today = new Date();
       let dd = String(today.getDate()).padStart(2, '0');
@@ -96,19 +99,28 @@ function CreateBooking() {
 
       today = dd + '/' + mm + '/' + yyyy;
 
-
+      // console.log({
+      //   name: name,
+      //   contact: contact,
+      //   group: group,
+      //   maximum: parseInt(maximum),
+      //   minimum: parseInt(minimum),
+      //   enquiryDate: today,
+      //   days: parseInt(days),
+      //   people: parseInt(people)
+      // })
       try {
         await addDoc(collection(db, 'bookings'), {
           name: name,
           contact: contact,
-          villa: villaName,
-          budgetPerPerson: parseInt(budgetPerPerson),
-          total: total,
-          checkIn: today,
+          group: group,
+          maximum: parseInt(maximum),
+          minimum: parseInt(minimum),
+          enquiryDate: today,
           days: parseInt(days),
           people: parseInt(people)
         });
-        alert('Created Booking Successfully');
+        alert('Created Enquiry Successfully');
         window.location.reload();
       } catch (error) {
         alert('Something went wrong');
@@ -196,7 +208,7 @@ function CreateBooking() {
     const fetchedBookings = [];
 
     querySnapshot.forEach((doc) => {
-      fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
+      fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, group: doc.data().group, maximum: doc.data().maximum, minimum: doc.data().minimum, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
     });
 
     console.log(fetchedBookings)
@@ -205,7 +217,31 @@ function CreateBooking() {
 
   }
 
+  const [groupObj, setGroupObj] = useState([])
 
+  useEffect(() => {
+    if (!fetch) {
+      const fetchGroupObj = async () => {
+        const querySnapshot = await getDocs(collection(db, "groups"));
+        const fetchedGroups = [{
+          id: 1, name: "N/A"
+        }];
+
+
+        querySnapshot.forEach((doc) => {
+          fetchedGroups.push({ id: doc.id, name: doc.data().name });
+        });
+
+        setGroupObj(fetchedGroups);
+        setFetch(true);
+      }
+
+      fetchGroupObj();
+    }
+  }, [fetch]);
+  const handleGroupDropdown = (event) => {
+    setGroup(event.target.value);
+  };
 
 
   return (
@@ -224,7 +260,7 @@ function CreateBooking() {
       />
       <div className='w-screen flex flex-col justify-center items-center text-black'>
         <div className='flex flex-col justify-center items-center p-20  my-20 rounded-lg space-y-5 border border-gray-300  shadow-lg '>
-          <h1 className={`${raleway.className} text-4xl font-bold mb-10`}>Create Booking </h1>
+          <h1 className={`${raleway.className} text-4xl font-bold mb-10`}>Create Enquiry </h1>
           <form className='flex flex-col justify-start items-start space-y-10 '>
 
             {/* <div className="mb-4 flex justify-center items-center ">
@@ -272,7 +308,7 @@ function CreateBooking() {
                 className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
               />
             </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
+            {/* <div className=" flex flex-col justify-start items-start space-y-4">
               <h1 className={`${inter.className} text-md font-bold `}>Enter Budget Per Person (Range: 10k-20k)</h1>
               <input
                 onChange={(e) => {
@@ -287,7 +323,7 @@ function CreateBooking() {
                 className="placeholder:text-gray-500 px-5 py-2 outline-none border border-gray-300 bg-transparent w-96 rounded-lg"
               />
 
-            </div>
+            </div> */}
             <div className=" flex flex-col justify-start items-start space-y-4">
               <h1 className={`${inter.className} text-md font-bold `}>Enter No. Of People</h1>
               <input
@@ -308,7 +344,43 @@ function CreateBooking() {
                 className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
               />
             </div>
+            <div className=" flex flex-col justify-start items-start space-y-4">
+              <h1 className={`${inter.className} text-md font-bold `}>Enter Minimum Budget</h1>
+              <input
+                onChange={(e) => setMinimum(e.target.value)}
+                value={minimum}
+                type="number"
+                placeholder="0"
+                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+              />
+            </div>
+            <div className=" flex flex-col justify-start items-start space-y-4">
+              <h1 className={`${inter.className} text-md font-bold `}>Enter Maximum Budget</h1>
+              <input
+                onChange={(e) => setMaximum(e.target.value)}
+                value={maximum}
+                type="number"
+                placeholder="0"
+                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+              />
+            </div>
             <div className="flex flex-col justify-start items-start space-y-4">
+              <h1 className={`${inter.className} text-md font-bold `}>Select Group</h1>
+
+              <select
+                value={group}
+                onChange={handleGroupDropdown}
+                className="block w-96 py-2 px-5 leading-tight border border-gray-300   focus:outline-none cursor-pointer"
+              >
+                {groupObj.map((group, index) => (
+                  <option key={index} value={group.name}>
+                    {group.name}
+                  </option>
+                ))}
+              </select>
+
+            </div>
+            {/* <div className="flex flex-col justify-start items-start space-y-4">
               <h1 className={`${inter.className} text-md font-bold `}>Select Villa</h1>
 
               <select
@@ -323,7 +395,7 @@ function CreateBooking() {
                 ))}
               </select>
 
-            </div>
+            </div> */}
 
 
             <div type="submit" onClick={createBooking} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border border-gray-800 rounded-full hover:text-white group hover:bg-gray-600">
@@ -339,7 +411,7 @@ function CreateBooking() {
 
         <div class="w-screen px-40 py-10 flex justify-between items-center ">
           <div class="flex justify-between items-center ">
-            <h1 class={`${inter.className} text-4xl font-bold `}>Existing Bookings</h1>
+            <h1 class={`${inter.className} text-4xl font-bold `}>Existing Enquiry</h1>
           </div>
 
           <div class="flex justify-center items-center space-x-4">

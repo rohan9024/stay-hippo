@@ -57,27 +57,48 @@ function VillaMiddle() {
 
 
 
-        const q = query(
-          collection(db, "bookings"),
-          where("villa", "==", v),
+
+
+        // Fetch group
+
+        const q2 = query(
+          collection(db, "villas"),
+          where("name", "==", v),
         );
 
-        const querySnapshot = await getDocs(q);
-        // const querySnapshot = await getDocs(collection(db, "bookings"));
 
-        if (querySnapshot.empty) {
+
+        const querySnapshot2 = await getDocs(q2);
+        if (querySnapshot2.empty) {
           alert("Not found");
+          return;
         } else {
-          const fetchedBookings = [];
-
-          querySnapshot.forEach((doc) => {
-            fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, total: doc.data().total, villa: doc.data().villa });
+          let g;
+          querySnapshot2.forEach((doc) => {
+            g = doc.data().group
           });
+            const q = query(
+              collection(db, "bookings"),
+              where("group", "==", g),
+            );
+            const querySnapshot = await getDocs(q);
+            // const querySnapshot = await getDocs(collection(db, "bookings"));
 
-          console.log(fetchedBookings)
-          setBookingsObj(fetchedBookings);
-          setFetch(true);
+            if (querySnapshot.empty) {
+              alert("Not found");
+            } else {
+              const fetchedBookings = [];
+
+              querySnapshot.forEach((doc) => {
+                fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, enquiryDate: doc.data().enquiryDate });
+              });
+
+              console.log(fetchedBookings)
+              setBookingsObj(fetchedBookings);
+              setFetch(true);
+            }
         }
+
       }
 
       fetchBookingObj();
@@ -149,7 +170,7 @@ function VillaMiddle() {
           days: days,
           people: people
         });
-        alert('Created Booking Successfully');
+        alert('Created Enquiry Successfully');
         window.location.reload();
       } catch (error) {
         alert('Something went wrong');
@@ -257,7 +278,7 @@ function VillaMiddle() {
         </div> */}
 
         <div class="flex justify-between items-center pt-20 ">
-          <h1 class={`${inter.className} text-4xl font-bold `}>Existing Bookings</h1>
+          <h1 class={`${inter.className} text-4xl font-bold `}>Existing Enquiries</h1>
         </div>
 
         <div class={`${inter.className} relative overflow-x-auto mt-10`}>
@@ -274,20 +295,20 @@ function VillaMiddle() {
                   Contact
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Check In
+                  Enquiry Date
                 </th>
-                <th scope="col" class="px-6 py-3">
+                {/* <th scope="col" class="px-6 py-3">
                   Check Out
-                </th>
+                </th> */}
                 <th scope="col" class="px-6 py-3">
-                  Budget Per Person
+                  Budget
                 </th>
                 <th scope="col" class="px-6 py-3">
                   People
                 </th>
-                <th scope="col" class="px-6 py-3">
+                {/* <th scope="col" class="px-6 py-3">
                   Total
-                </th>
+                </th> */}
 
                 {/* <th scope="col" class="px-6 py-3">
                   Options
@@ -296,7 +317,7 @@ function VillaMiddle() {
             </thead>
             {
               bookingsObj.map((booking) => {
-                totalSum += booking.total;
+                totalSum += booking.maximum;
 
                 return (
                   <tbody>
@@ -311,20 +332,16 @@ function VillaMiddle() {
                         <h1 className='truncate w-36'>{booking.contact}</h1>
                       </td>
                       <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.checkIn}</h1>
+                        <h1 className='truncate w-20'>{booking.enquiryDate}</h1>
                       </td>
+            
                       <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.checkOut}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.budgetPerPerson}</h1>
+                        <h1 className='truncate w-20'>{booking.maximum}</h1>
                       </td>
                       <td class="px-6 py-4 ">
                         <h1 className='truncate w-20'>{booking.people}</h1>
                       </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.total}</h1>
-                      </td>
+                   
 
                       {/* <td class="px-6 py-4 ">
                       <div className='flex justify-around items-center w-[130px] space-x-4'>
