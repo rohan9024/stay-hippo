@@ -16,6 +16,13 @@ function Homepage() {
         <div className="flex flex-col h-screen ">
             <div className="w-screen py-6 px-10 flex justify-between items-center">
                 <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
+
+                <div className='flex justify-center items-center space-x-10'>
+                    <Link href="/about-us" className={`${poppins.className} text-md font-normal cursor-pointer hover:text-gray-400`}>About Us</Link>
+                    <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-md font-normal cursor-pointer hover:text-gray-400`}>Education</a>
+                    <Link href="/terms-conditions" className={`${poppins.className} text-md font-normal cursor-pointer hover:text-gray-400`}>Terms & Conditions</Link>
+                </div>
+
             </div>
             <div className="bg-gray-900 h-[1px]" />
             <div className="flex flex-col justify-center items-center flex-grow space-y-10">

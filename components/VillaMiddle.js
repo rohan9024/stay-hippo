@@ -278,7 +278,7 @@ function VillaMiddle() {
         </div> */}
 
         <div class="flex justify-between items-center pt-20 ">
-          <h1 class={`${inter.className} text-4xl font-bold `}>Existing Enquiries</h1>
+          <h1 class={`${inter.className} text-4xl font-bold `}>HOT Enquiries</h1>
         </div>
 
         <div class={`${inter.className} relative overflow-x-auto mt-10`}>
