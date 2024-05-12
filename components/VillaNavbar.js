@@ -33,6 +33,7 @@ function VillaNavbar() {
             <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
                 <div class="flex justify-center items-center space-x-10">
                     <Link href="/villa-panel" class={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Villa Panel</Link>
+                    <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Education</a>
                     <div onClick={() => {
                         router.push('/villa-login');
                         if (typeof window !== 'undefined') {

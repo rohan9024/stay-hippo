@@ -186,52 +186,58 @@ function Middle() {
 
   }
   async function deleteGroupRequest(id, group) {
+    var answer = window.confirm("Delete Villa?");
+    if (answer) {
+      // Update the doc first
+      const docRef = doc(db, "groups", id);
+
+      try {
+        await deleteDoc(docRef, {
+          name: groupName,
+        });
+
+      } catch (error) {
+        alert(error)
+        alert('Unable to update');
+      }
 
 
-    // Update the doc first
-    const docRef = doc(db, "groups", id);
+      // Find and update docs
 
-    try {
-      await deleteDoc(docRef, {
-        name: groupName,
-      });
+      const q = query(
+        collection(db, "villas"),
+        where("group", "==", group),
+      );
 
-    } catch (error) {
-      alert(error)
-      alert('Unable to update');
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        alert("Deleted Group Successfully")
+        window.location.reload();
+      } else {
+        const fetchedVillas = [];
+
+        querySnapshot.forEach((doc) => {
+          fetchedVillas.push(doc.id);
+        });
+
+        fetchedVillas.forEach(async (document) => {
+          const docRef = doc(db, "villas", document);
+
+          await deleteDoc(docRef);
+        });
+
+        alert("Deleted Group Successfully")
+        window.location.reload();
+
+
+      }
+    }
+    else {
+      return;
     }
 
 
-    // Find and update docs
-
-    const q = query(
-      collection(db, "villas"),
-      where("group", "==", group),
-    );
-
-    const querySnapshot = await getDocs(q);
-
-    if (querySnapshot.empty) {
-      alert("Deleted Group Successfully")
-      window.location.reload();
-    } else {
-      const fetchedVillas = [];
-
-      querySnapshot.forEach((doc) => {
-        fetchedVillas.push(doc.id);
-      });
-
-      fetchedVillas.forEach(async (document) => {
-        const docRef = doc(db, "villas", document);
-
-        await deleteDoc(docRef);
-      });
-
-      alert("Deleted Group Successfully")
-      window.location.reload();
-
-
-    }
 
   }
 

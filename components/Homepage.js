@@ -18,9 +18,9 @@ function Homepage() {
                 <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
 
                 <div className='flex justify-center items-center space-x-10'>
-                    <Link href="/about-us" className={`${poppins.className} text-md font-normal cursor-pointer hover:text-gray-400`}>About Us</Link>
-                    <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-md font-normal cursor-pointer hover:text-gray-400`}>Education</a>
-                    <Link href="/terms-conditions" className={`${poppins.className} text-md font-normal cursor-pointer hover:text-gray-400`}>Terms & Conditions</Link>
+                    <Link href="/about-us" className={`${poppins.className}text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>About Us</Link>
+                    <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Education</a>
+                    <Link href="/terms-conditions" className={`${poppins.className}text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Terms & Conditions</Link>
                 </div>
 
             </div>

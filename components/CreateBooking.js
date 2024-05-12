@@ -39,9 +39,13 @@ function CreateBooking() {
   const [budgetPerPerson, setBudgetPerPerson] = useState(null)
   const [contact, setContact] = useState(null)
   const [minimum, setMinimum] = useState()
+  const [location, setLocation] = useState()
   const [maximum, setMaximum] = useState()
+  const [selectedDate, setSelectedDate] = useState()
+  const [notes, setNotes] = useState()
+  const [flexibility, setFlexibility] = useState()
   const [villaName, setVillaName] = useState('N/A')
-  const [v2, setv2] = useState('N/A')
+  const [searchGroup, setSearchGroup] = useState('N/A')
   const [group, setGroup] = useState("N/A")
 
   const [fetch, setFetch] = useState(false)
@@ -91,44 +95,47 @@ function CreateBooking() {
 
   const createBooking = async () => {
 
-    if (name && contact && people && days && minimum && maximum && group && checkOut && checkIn) {
-      const total = maximum * days;
+    if (name && contact && people && days && minimum && maximum && group && checkOut && checkIn && notes && location && flexibility) {
+    // const total = maximum * days;
 
-      let today = new Date();
-      let dd = String(today.getDate()).padStart(2, '0');
-      let mm = String(today.getMonth() + 1).padStart(2, '0');
-      let yyyy = today.getFullYear();
+    // let today = new Date();
+    // let dd = String(today.getDate()).padStart(2, '0');
+    // let mm = String(today.getMonth() + 1).padStart(2, '0');
+    // let yyyy = today.getFullYear();
 
-      today = dd + '/' + mm + '/' + yyyy;
+    // today = dd + '/' + mm + '/' + yyyy;
 
-      // console.log({
-      //   name: name,
-      //   contact: contact,
-      //   group: group,
-      //   maximum: parseInt(maximum),
-      //   minimum: parseInt(minimum),
-      //   enquiryDate: today,
-      //   days: parseInt(days),
-      //   people: parseInt(people)
-      // })
-      try {
-        await addDoc(collection(db, 'bookings'), {
-          name: name,
-          contact: contact,
-          group: group,
-          checkIn: checkIn,
-          checkOut: checkOut,
-          maximum: parseInt(maximum),
-          minimum: parseInt(minimum),
-          enquiryDate: today,
-          days: parseInt(days),
-          people: parseInt(people)
-        });
-        alert('Created Enquiry Successfully');
-        window.location.reload();
-      } catch (error) {
-        alert('Something went wrong');
-      }
+    // console.log({
+    //   name: name,
+    //   contact: contact,
+    //   group: group,
+    //   maximum: parseInt(maximum),
+    //   minimum: parseInt(minimum),
+    //   days: parseInt(days),
+    //   people: parseInt(people),
+    //   checkIn: checkIn,
+    //   checkOut: checkOut,
+    // })
+    try {
+      await addDoc(collection(db, 'bookings'), {
+        name: name,
+        contact: contact,
+        group: group,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        flexibility: flexibility,
+        location: location,
+        notes: notes,
+        maximum: parseInt(maximum),
+        minimum: parseInt(minimum),
+        days: parseInt(days),
+        people: parseInt(people)
+      });
+      alert('Created Enquiry Successfully');
+      window.location.reload();
+    } catch (error) {
+      alert('Something went wrong');
+    }
     }
     else {
       alert('Something is missing')
@@ -205,14 +212,14 @@ function CreateBooking() {
 
     const q = query(
       collection(db, "bookings"),
-      where("villa", "==", v2),
+      where("group", "==", searchGroup),
     );
 
     const querySnapshot = await getDocs(q);
     const fetchedBookings = [];
 
     querySnapshot.forEach((doc) => {
-      fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, group: doc.data().group, maximum: doc.data().maximum, minimum: doc.data().minimum, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
+      fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, group: doc.data().group, maximum: doc.data().maximum, minimum: doc.data().minimum, contact: doc.data().contact, name: doc.data().name, flexibility: doc.data().flexibility, location: doc.data().location,notes: doc.data().notes  });
     });
 
     console.log(fetchedBookings)
@@ -245,6 +252,9 @@ function CreateBooking() {
   }, [fetch]);
   const handleGroupDropdown = (event) => {
     setGroup(event.target.value);
+  };
+  const handleSearchGroupDropdown = (event) => {
+    setSearchGroup(event.target.value);
   };
 
 
@@ -292,26 +302,31 @@ function CreateBooking() {
                             </div>
                         </div> */}
 
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Name</h1>
-              <input
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                type="text"
-                placeholder="Rakesh Patil"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent w-96 rounded-lg"
-              />
+
+            <div className='flex justify-center items-center space-x-5'>
+
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter Name</h1>
+                <input
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  type="text"
+                  placeholder="Rakesh Patil"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent w-96 rounded-lg"
+                />
+              </div>
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter Contact</h1>
+                <input
+                  onChange={(e) => setContact(e.target.value)}
+                  value={contact}
+                  type="text"
+                  placeholder="9134244728"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
             </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Contact</h1>
-              <input
-                onChange={(e) => setContact(e.target.value)}
-                value={contact}
-                type="text"
-                placeholder="9134244728"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
-              />
-            </div>
+
             {/* <div className=" flex flex-col justify-start items-start space-y-4">
               <h1 className={`${inter.className} text-md font-bold `}>Enter Budget Per Person (Range: 10k-20k)</h1>
               <input
@@ -328,82 +343,130 @@ function CreateBooking() {
               />
 
             </div> */}
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter No. Of People</h1>
-              <input
-                onChange={(e) => setPeople(e.target.value)}
-                value={people}
-                type="number"
-                placeholder="0"
-                className="placeholder:text-gray-500 px-5 py-2 outline-none border border-gray-300 bg-transparent appearance-none w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter No. of Days</h1>
-              <input
-                onChange={(e) => setDays(e.target.value)}
-                value={days}
-                type="number"
-                placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Minimum Budget</h1>
-              <input
-                onChange={(e) => setMinimum(e.target.value)}
-                value={minimum}
-                type="number"
-                placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Maximum Budget</h1>
-              <input
-                onChange={(e) => setMaximum(e.target.value)}
-                value={maximum}
-                type="number"
-                placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Check In</h1>
-              <input
-                onChange={(e) => setCheckIn(e.target.value)}
-                value={checkIn}
-                type="text"
-                // placeholder="23/04/2023"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
-              />
-            </div>
-            <div className=" flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Enter Check Out</h1>
-              <input
-                onChange={(e) => setCheckOut(e.target.value)}
-                value={checkOut}
-                type="text"
-                // placeholder="0"
-                className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
-              />
-            </div>
-            <div className="flex flex-col justify-start items-start space-y-4">
-              <h1 className={`${inter.className} text-md font-bold `}>Select Group</h1>
 
-              <select
-                value={group}
-                onChange={handleGroupDropdown}
-                className="block w-96 py-2 px-5 leading-tight border border-gray-300   focus:outline-none cursor-pointer"
-              >
-                {groupObj.map((group, index) => (
-                  <option key={index} value={group.name}>
-                    {group.name}
-                  </option>
-                ))}
-              </select>
+            <div className='flex justify-center items-center space-x-5'>
+
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter No. Of People</h1>
+                <input
+                  onChange={(e) => setPeople(e.target.value)}
+                  value={people}
+                  type="number"
+                  placeholder="0"
+                  className="placeholder:text-gray-500 px-5 py-2 outline-none border border-gray-300 bg-transparent appearance-none w-96 rounded-lg"
+                />
+              </div>
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter No. of Days</h1>
+                <input
+                  onChange={(e) => setDays(e.target.value)}
+                  value={days}
+                  type="number"
+                  placeholder="0"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
+            </div>
+            <div className='flex justify-center items-center space-x-5'>
+
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter Minimum Budget</h1>
+                <input
+                  onChange={(e) => setMinimum(e.target.value)}
+                  value={minimum}
+                  type="number"
+                  placeholder="0"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter Maximum Budget</h1>
+                <input
+                  onChange={(e) => setMaximum(e.target.value)}
+                  value={maximum}
+                  type="number"
+                  placeholder="0"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
+            </div>
+
+            <div className='flex justify-center items-center space-x-5'>
+
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter Location</h1>
+                <input
+                  onChange={(e) => setLocation(e.target.value)}
+                  value={location}
+                  type="text"
+                  // placeholder="0"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter Flexibility</h1>
+                <input
+                  onChange={(e) => setFlexibility(e.target.value)}
+                  value={flexibility}
+                  type="text"
+                  // placeholder="0"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
+            </div>
+            <div className='flex justify-center items-center space-x-5'>
+
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Enter Notes</h1>
+                <input
+                  onChange={(e) => setNotes(e.target.value)}
+                  value={notes}
+                  type="text"
+                  // placeholder="0"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Select Group</h1>
+
+                <select
+                  value={group}
+                  onChange={handleGroupDropdown}
+                  className="block w-96 py-2 px-5 leading-tight border border-gray-300   focus:outline-none cursor-pointer"
+                >
+                  {groupObj.map((group, index) => (
+                    <option key={index} value={group.name}>
+                      {group.name}
+                    </option>
+                  ))}
+                </select>
+
+              </div>
 
             </div>
+            <div className='flex justify-center items-center space-x-5'>
+
+            <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Check In</h1>
+                <input
+                  onChange={(e) => setCheckIn(e.target.value)}
+                  value={checkIn}
+                  type="text"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent w-96 rounded-lg"
+                />
+              </div>
+              <div className=" flex flex-col justify-start items-start space-y-4">
+                <h1 className={`${inter.className} text-md font-bold `}>Check Out</h1>
+                <input
+                  onChange={(e) => setCheckOut(e.target.value)}
+                  value={checkOut}
+                  type="text"
+                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+                />
+              </div>
+         
+            </div>
+
             {/* <div className="flex flex-col justify-start items-start space-y-4">
               <h1 className={`${inter.className} text-md font-bold `}>Select Villa</h1>
 
@@ -440,13 +503,13 @@ function CreateBooking() {
 
           <div class="flex justify-center items-center space-x-4">
             <select
-              value={v2}
-              onChange={handleVilla2Dropdown}
+              value={searchGroup}
+              onChange={handleSearchGroupDropdown}
               className="block w-96 py-2 px-5 leading-tight border border-gray-300 focus:outline-none cursor-pointer"
             >
-              {allVillasObj.map((villa, index) => (
-                <option key={index} value={villa.name}>
-                  {villa.name}
+              {groupObj.map((group, index) => (
+                <option key={index} value={group.name}>
+                  {group.name}
                 </option>
               ))}
             </select>
@@ -461,23 +524,23 @@ function CreateBooking() {
         {/* List of boxes */}
         <div class="grid grid-cols-4 gap-10 py-10 ">
           {bookingObj.map((booking) => (
-            <div class="flex flex-col justify-center border border-gray-300 shadow-md min-w-[280px] h-[340px] px-5 space-y-2 rounded-lg ">
+            <div class="flex flex-col justify-center border border-gray-300 shadow-md min-w-[280px] h-[400px] px-5 space-y-2 rounded-lg ">
               <h1 class={`${inter.className} text-xl font-bold cursor-pointer`}>Name: {booking.name}</h1>
               <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Contact: {booking.contact}</h1>
               <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. Of People: {booking.people}</h1>
-              <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Budget Per Person: {booking.budgetPerPerson}</h1>
+              <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Budget Per Person: {booking.maximum}</h1>
               <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>No. of Days: {booking.days}</h1>
-              <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Total: {booking.total}</h1>
               <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check In: {booking.checkIn}</h1>
               <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Check Out: {booking.checkOut}</h1>
+              <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Location: {booking.location}</h1>
+              <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Flexibility: {booking.flexibility}</h1>
+              <h1 class={`${inter.className} text-md font-medium  cursor-pointer `}>Notes: {booking.notes}</h1>
 
               <div className='flex justify-end items-end space-x-2 '>
                 {booking.checkOut ? null : (
-
                   <div class="mt-2 cursor-pointer " onClick={() => checkout(booking)} >
                     <img src="/accept.png" alt="checkout" className='w-7 h-7' />
                   </div>
-
 
                 )
 

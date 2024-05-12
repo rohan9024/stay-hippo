@@ -77,26 +77,26 @@ function VillaMiddle() {
           querySnapshot2.forEach((doc) => {
             g = doc.data().group
           });
-            const q = query(
-              collection(db, "bookings"),
-              where("group", "==", g),
-            );
-            const querySnapshot = await getDocs(q);
-            // const querySnapshot = await getDocs(collection(db, "bookings"));
+          const q = query(
+            collection(db, "bookings"),
+            where("group", "==", g),
+          );
+          const querySnapshot = await getDocs(q);
+          // const querySnapshot = await getDocs(collection(db, "bookings"));
 
-            if (querySnapshot.empty) {
-              alert("Not found");
-            } else {
-              const fetchedBookings = [];
+          if (querySnapshot.empty) {
+            alert("Not found");
+          } else {
+            const fetchedBookings = [];
 
-              querySnapshot.forEach((doc) => {
-                fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, enquiryDate: doc.data().enquiryDate,checkIn: doc.data().checkIn ,checkOut: doc.data().checkOut  });
-              });
+            querySnapshot.forEach((doc) => {
+              fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, flexibility: doc.data().flexibility, notes: doc.data().notes, location: doc.data().location });
+            });
 
-              console.log(fetchedBookings)
-              setBookingsObj(fetchedBookings);
-              setFetch(true);
-            }
+            console.log(fetchedBookings)
+            setBookingsObj(fetchedBookings);
+            setFetch(true);
+          }
         }
 
       }
@@ -279,6 +279,9 @@ function VillaMiddle() {
 
         <div class="flex justify-between items-center pt-20 ">
           <h1 class={`${inter.className} text-4xl font-bold `}>HOT Enquiries</h1>
+          <div class=" cursor-pointer " >
+            <img src="/live.gif" alt="live" className=' h-32 object-contain' />
+          </div>
         </div>
 
         <div class={`${inter.className} relative overflow-x-auto mt-10`}>
@@ -295,13 +298,13 @@ function VillaMiddle() {
                   Contact
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Enquiry Date
+                  Location
                 </th>
-                {/* <th scope="col" class="px-6 py-3">
-                  Check Out
-                </th> */}
                 <th scope="col" class="px-6 py-3">
-                  Budget
+                  Flexibility
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Notes
                 </th>
                 <th scope="col" class="px-6 py-3">
                   Check In
@@ -311,6 +314,9 @@ function VillaMiddle() {
                 </th>
                 <th scope="col" class="px-6 py-3">
                   People
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Budget
                 </th>
                 {/* <th scope="col" class="px-6 py-3">
                   Total
@@ -338,11 +344,13 @@ function VillaMiddle() {
                         <h1 className='truncate w-36'>{booking.contact}</h1>
                       </td>
                       <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.enquiryDate}</h1>
+                        <h1 className='truncate w-36'>{booking.location}</h1>
                       </td>
-            
                       <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.maximum}</h1>
+                        <h1 className='truncate w-36'>{booking.flexibility}</h1>
+                      </td>
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-36'>{booking.notes}</h1>
                       </td>
                       <td class="px-6 py-4 ">
                         <h1 className='truncate w-20'>{booking.checkIn}</h1>
@@ -353,7 +361,9 @@ function VillaMiddle() {
                       <td class="px-6 py-4 ">
                         <h1 className='truncate w-20'>{booking.people}</h1>
                       </td>
-                   
+                      <td class="px-6 py-4 ">
+                        <h1 className='truncate w-20'>{booking.maximum}</h1>
+                      </td>
 
                       {/* <td class="px-6 py-4 ">
                       <div className='flex justify-around items-center w-[130px] space-x-4'>
@@ -371,7 +381,7 @@ function VillaMiddle() {
             }
             <tbody>
               <tr>
-                <td colSpan="8" className="px-6 py-4 text-right font-bold">
+                <td colSpan="10" className="px-6 py-4 text-right font-bold">
                   Total Sum: {totalSum}
                 </td>
               </tr>
