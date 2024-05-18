@@ -1,21 +1,16 @@
 "use client"
 
-import React, { useContext, useEffect, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react'
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from '../components/Navbar';
 import { Inter, Raleway } from 'next/font/google';
 import { useRouter } from 'next/navigation';
-import { AuthContext } from "../contexts/AuthContext"
-import DatePicker from 'react-datepicker';
-import Select from 'react-select';
 
 
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-time-picker/dist/TimePicker.css';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '../firebase';
-import VillaNavbar from './VillaNavbar';
 
 const raleway = Raleway({
   weight: ['400', '700'],
@@ -56,9 +51,6 @@ function VillaMiddle() {
         }
 
 
-
-
-
         // Fetch group
 
         const q2 = query(
@@ -82,7 +74,6 @@ function VillaMiddle() {
             where("group", "==", g),
           );
           const querySnapshot = await getDocs(q);
-          // const querySnapshot = await getDocs(collection(db, "bookings"));
 
           if (querySnapshot.empty) {
             alert("Not found");
@@ -104,34 +95,6 @@ function VillaMiddle() {
       fetchBookingObj();
     }
   }, [fetch]);
-
-
-
-  // useEffect(() => {
-  //   async function findBookings() {
-
-
-  //     const q = query(
-  //       collection(db, "bookings"),
-  //       where("villa", "==", "saj villa"),
-  //     );
-
-  //     const querySnapshot = await getDocs(q);
-  //     const fetchedBookings = [];
-
-  //     querySnapshot.forEach((doc) => {
-  //       fetchedBookings.push({ id: doc.id, checkIn: doc.data().checkIn, days: doc.data().days, checkOut: doc.data().checkOut, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, name: doc.data().name, total: doc.data().total });
-  //     });
-
-  //     console.log()
-
-  //     setBookingsObj(fetchedBookings);
-
-  //   }
-  //   findBookings();
-
-  // }, [fetch])
-
 
 
 
@@ -277,116 +240,78 @@ function VillaMiddle() {
 
         </div> */}
 
-        <div class="flex justify-between items-center pt-20 ">
+        <div class="flex justify-between items-center pt-20 space-x-10">
           <h1 class={`${inter.className} text-4xl font-bold `}>HOT Enquiries</h1>
-          <div class=" cursor-pointer " >
-            <img src="/live.gif" alt="live" className=' h-32 object-contain' />
+          <div class=" cursor-pointer flex justify-center items-center " >
+            <h1 class={`${inter.className} text-2xl font-bold text-red-600 `}>LIVE</h1>
+            <div className='flex justify-center items-center w-10 h-20 rounded-full  '>
+              <img src="/live.gif" alt="live" className=' w-10 h-32 object-cover' />
+            </div>
           </div>
         </div>
 
         <div class={`${inter.className} relative overflow-x-auto mt-10`}>
-          <table class="w-full text-sm text-left  ">
-            <thead class="text-md border border-gray-800  ">
+          <table class="min-w-full text-sm text-left">
+            <thead class="text-md border border-gray-800">
               <tr>
-                <th scope="col" class="px-6 py-3">
-                  Sr. No.
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Contact
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Location
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Flexibility
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Notes
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Check In
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Check Out
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  People
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Budget
-                </th>
-                {/* <th scope="col" class="px-6 py-3">
-                  Total
-                </th> */}
-
-                {/* <th scope="col" class="px-6 py-3">
-                  Options
-                </th> */}
+                <th scope="col" class="px-4 py-4">Sr. No.</th>
+                <th scope="col" class="px-4 py-4">Name</th>
+                <th scope="col" class="px-4 py-4">Contact</th>
+                <th scope="col" class="px-4 py-4">Location</th>
+                <th scope="col" class="px-4 py-4">Flexibility</th>
+                <th scope="col" class="px-4 py-4">Notes</th>
+                <th scope="col" class="px-4 py-4">Check In</th>
+                <th scope="col" class="px-4 py-4">Check Out</th>
+                <th scope="col" class="px-4 py-4">People</th>
+                <th scope="col" class="px-4 py-4">Budget</th>
               </tr>
             </thead>
-            {
-              bookingsObj.map((booking) => {
-                totalSum += booking.maximum;
-
-                return (
-                  <tbody>
-                    <tr class=" border border-gray-800  ">
-                      <th scope="row" class="w-24 px-6 py-4 text-center font-medium  whitespace-nowrap ">
-                        <h1>{bcount++}</h1>
-                      </th>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-36'>{booking.name}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-36'>{booking.contact}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-36'>{booking.location}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-36'>{booking.flexibility}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-36'>{booking.notes}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.checkIn}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.checkOut}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.people}</h1>
-                      </td>
-                      <td class="px-6 py-4 ">
-                        <h1 className='truncate w-20'>{booking.maximum}</h1>
-                      </td>
-
-                      {/* <td class="px-6 py-4 ">
-                      <div className='flex justify-around items-center w-[130px] space-x-4'>
-                        <div onClick={() => deleteBooking(booking)} className=' w-32 flex justify-around items-center cursor-pointer' >
-                          <img src='/delete.png' alt="remove" className='w-5 h-5 ' />
-                          <h1>Delete Record</h1>
-                        </div>
-
-                      </div>
-                    </td> */}
-                    </tr>
-                  </tbody>
-                )
-              })
-            }
+            {bookingsObj.map((booking) => {
+              totalSum += booking.maximum;
+              return (
+                <tbody>
+                  <tr class="border border-gray-800">
+                    <th scope="row" class="px-4 py-4 text-center font-medium whitespace-nowrap">
+                      <h1>{bcount++}</h1>
+                    </th>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-24'>{booking.name}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-24'>{booking.contact}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-24'>{booking.location}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-24'>{booking.flexibility}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-24'>{booking.notes}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-20'>{booking.checkIn}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-20'>{booking.checkOut}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-16'>{booking.people}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-16'>{booking.maximum}</h1>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
             <tbody>
               <tr>
-                <td colSpan="10" className="px-6 py-4 text-right font-bold">
+                <td colSpan="10" className="px-4 py-4 text-right font-bold">
                   Total Sum: {totalSum}
                 </td>
               </tr>
             </tbody>
-
           </table>
         </div>
 
