@@ -98,11 +98,6 @@ function VillaMiddle() {
 
 
 
-  async function deleteBooking(booking) {
-    await deleteDoc(doc(db, "auditorium-bookings", booking.id));
-    alert("Deleted Booking Successfully")
-    window.location.reload();
-  }
 
 
 

@@ -23,13 +23,15 @@ function ViewBookings() {
     const [villaObj, setVillaObj] = useState([])
 
 
+
     async function findBookings(villa) {
+
+        // Fetch group
 
         const q = query(
             collection(db, "bookings"),
-            where("villa", "==", villa.name),
+            where("name", "==", villa.name),
         );
-
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
@@ -38,14 +40,17 @@ function ViewBookings() {
             const fetchedBookings = [];
 
             querySnapshot.forEach((doc) => {
-                fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, budgetPerPerson: doc.data().budgetPerPerson, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, total: doc.data().total });
+                fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, flexibility: doc.data().flexibility, notes: doc.data().notes, location: doc.data().location });
             });
-            console.log(fetchedBookings)
 
-            setBookingsObj(fetchedBookings);
+            console.log(fetchedBookings)
             setViewBooking(true)
+            setBookingsObj(fetchedBookings);
             setFetch(true);
         }
+
+
+
     }
 
 
@@ -76,7 +81,7 @@ function ViewBookings() {
     var vcount = 1;
     var bcount = 1;
 
-    
+
     async function deleteBooking(booking) {
         await deleteDoc(doc(db, "bookings", booking.id));
         window.location.reload();
@@ -140,7 +145,7 @@ function ViewBookings() {
                         <>
 
                             <div class="flex justify-between items-center pt-20 ">
-                                <h1 class={`${poppins.className} text-4xl font-bold `}>Existing Bookings</h1>
+                                <h1 class={`${poppins.className} text-4xl font-bold `}>Existing Enquiries</h1>
                             </div>
 
                             <div class={`${poppins.className} relative overflow-x-auto mt-10`}>
@@ -163,10 +168,13 @@ function ViewBookings() {
                                                 Check Out
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Budget Per Person
+                                                Budget
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Total
+                                                Flexibility
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                Notes
                                             </th>
 
                                             <th scope="col" class="px-6 py-3">
@@ -183,23 +191,27 @@ function ViewBookings() {
                                                         <h1>{bcount++}</h1>
                                                     </th>
                                                     <td class="px-6 py-4 ">
-                                                        <h1 className='truncate w-36'>{booking.name}</h1>
+                                                        <h1 className='truncate w-20'>{booking.name}</h1>
                                                     </td>
                                                     <td class="px-6 py-4 ">
                                                         <h1 className='truncate w-20'>{booking.contact}</h1>
                                                     </td>
                                                     <td class="px-6 py-4 ">
-                                                        <h1 className='truncate w-20'>{booking.checkIn}</h1>
+                                                        <h1 className='truncate w-24'>{booking.checkIn}</h1>
                                                     </td>
                                                     <td class="px-6 py-4 ">
-                                                        <h1 className='truncate w-20'>{booking.checkOut}</h1>
+                                                        <h1 className='truncate w-24'>{booking.checkOut}</h1>
                                                     </td>
                                                     <td class="px-6 py-4 ">
-                                                        <h1 className='truncate w-20'>{booking.budgetPerPerson}</h1>
+                                                        <h1 className='truncate w-20'>{booking.maximum}</h1>
                                                     </td>
                                                     <td class="px-6 py-4 ">
-                                                        <h1 className='truncate w-20'>{booking.total}</h1>
+                                                        <h1 className='truncate w-12'>{booking.flexibility}</h1>
                                                     </td>
+                                                    <td class="px-6 py-4 ">
+                                                        <h1 className='truncate w-20'>{booking.notes}</h1>
+                                                    </td>
+
 
                                                     <td class="px-6 py-4 ">
                                                         <div className='flex justify-around items-center w-[130px] space-x-4'>

@@ -19,8 +19,8 @@ function Navbar() {
             <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
                 <div class="flex justify-center items-center space-x-10">
                     <Link href="/admin-panel" class={`${poppins.className} text-sm font-medium cursor-pointer  hover:text-gray-400`}>Admin Panel</Link>
-                    <Link href="/create-bookings" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>Create Bookings</Link>
-                    <Link href="/view-bookings" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>View Bookings</Link>
+                    <Link href="/create-bookings" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>Create Enquiry</Link>
+                    <Link href="/view-bookings" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>View Enquiries</Link>
                     <Link href="/blacklisted" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>BlackListed</Link>
                     <Link href="/view-villas" class={`${poppins.className} text-sm font-medium cursor-pointer  hover:text-gray-400`}>View Villas</Link>
                     <Link href="/profile" class={`${poppins.className} text-sm font-medium cursor-pointer  hover:text-gray-400`}>Profile</Link>
