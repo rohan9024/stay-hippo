@@ -236,10 +236,10 @@ function VillaMiddle() {
         </div> */}
 
         <div class="flex justify-between items-center pt-20 space-x-10">
-          <h1 class={`${inter.className} text-4xl font-bold `}>HOT Enquiries</h1>
+          <h1 class={`${inter.className} text-4xl font-bold italic `}>HOT Leads</h1>
           <div class=" cursor-pointer flex justify-center items-center " >
             <h1 class={`${inter.className} text-2xl font-bold text-red-600 `}>LIVE</h1>
-            <div className='flex justify-center items-center w-10 h-20 rounded-full  '>
+            <div className='flex justify-center items-center w-10 h-10 rounded-full  '>
               <img src="/live.gif" alt="live" className=' w-10 h-32 object-cover' />
             </div>
           </div>
