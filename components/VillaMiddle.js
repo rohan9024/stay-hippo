@@ -262,7 +262,7 @@ function VillaMiddle() {
               </tr>
             </thead>
             {bookingsObj.map((booking) => {
-              totalSum += booking.maximum;
+              totalSum += parseInt(booking.maximum);
               return (
                 <tbody>
                   <tr class="border border-gray-800">
