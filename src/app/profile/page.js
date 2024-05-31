@@ -119,9 +119,9 @@ function page() {
             try {
                 await addDoc(collection(db, 'villaAccounts'), {
                     name: villa,
-                    username: username,
-                    password: password,
-                    location: location,
+                    username: username.trim(),
+                    password: password.trim(),
+                    location: location.trim(),
                 });
                 alert('Created Villa Account Successfully');
                 window.location.reload();
@@ -139,10 +139,10 @@ function page() {
 
         try {
             await updateDoc(docRef, {
-                name: editVilla ? editVilla : account.name ,
-                location: location ? location : account.location,
-                username: username ? username : account.username,
-                password: password ? password : account.password ,
+                name: editVilla ? editVilla : account.name,
+                location: location ? location.trim() : account.location,
+                username: username ? username.trim() : account.username,
+                password: password ? password.trim() : account.password,
             });
             alert('Updated Account Successfully');
             window.location.reload();
@@ -221,6 +221,19 @@ function page() {
         setEditVilla(event.target.value);
     };
 
+
+    async function deleteAllProfiles() {
+
+
+        accountObj.map(async (data) => {
+            await deleteDoc(doc(db, "villaAccounts", data.id));
+        })
+
+        alert("Deleted All Accounts Successfully")
+        // window.location.reload();
+
+    }
+
     return (
         <>
             <Navbar />
@@ -274,7 +287,7 @@ function page() {
                                         value={villa}
                                         onChange={handleVillaDropdown}
                                         className="block w-96 py-2 px-5 leading-tight border border-gray-900   focus:outline-none cursor-pointer"
-                                        >
+                                    >
                                         {allVillasObj.map((villa, index) => (
                                             <option key={index} value={villa.name}>
                                                 {villa.name}
@@ -300,9 +313,8 @@ function page() {
                                         className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-800 w-96 bg-transparent"
                                     />
 
-
-                                    <div type="submit" onClick={() => createVillaAccount()} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium  border-2 border-gray-900 rounded-full hover: group hover:bg-gray-600">
-                                        <span class="absolute left-0 block w-full h-0 transition-all bg-gray-900 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                                    <div type="submit" onClick={() => createVillaAccount()} class="text-black hover:text-white cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium  border-2 border-gray-900 rounded-full hover: group hover:bg-gray-600">
+                                        <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
                                         <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                         </span>
@@ -352,7 +364,7 @@ function page() {
                                         value={editVilla}
                                         onChange={handleEditVillaDropdown}
                                         className="block w-96 py-2 px-5 leading-tight border border-gray-900  focus:outline-none cursor-pointer"
-                                        >
+                                    >
                                         {allVillasObj.map((villa, index) => (
                                             <option key={index} value={villa.name}>
                                                 {villa.name}
@@ -438,6 +450,9 @@ function page() {
                                     <div onClick={() => { setCreateAccountModal(true); setEditAccountModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-900 transition hover:ease-in hover:bg-gray-200  shadow-md rounded-lg  cursor-pointer'>
                                         <h1 class={`${poppins.className} text-md  `}>Create New Account</h1>
                                     </div>
+                                    <div onClick={deleteAllProfiles} className='bg-red-500 text-white border border-red-600 ml-10 flex justify-center items-center px-5 py-2  transition hover:ease-in hover:bg-red-600 shadow-md rounded-lg  cursor-pointer'>
+                                        <h1 class={`${poppins.className} text-md  `}>Delete All Profiles</h1>
+                                    </div>
 
                                 </div>
                             </div>
@@ -448,11 +463,11 @@ function page() {
                             <div class="grid grid-cols-4 gap-10 py-14 ">
                                 {accountObj.map((account) => {
 
-                                    return account.id !== 1 && (<div class="flex flex-col justify-center border border-gray-900 shadow-md min-w-[250px] h-[220px] px-5 rounded-lg ">
-                                        <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>Villa: {account.name}</h1>
-                                        <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>Location: {account.location}</h1>
-                                        <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>Username: {account.username}</h1>
-                                        <h1 class={`${poppins.className} text-lg font-normal cursor-pointer`}>Password: {account.password}</h1>
+                                    return account.id !== 1 && (<div class="flex flex-col justify-center border border-gray-300 shadow-lg min-w-[250px] h-[220px] px-5 rounded-lg ">
+                                        <h1 class={`${poppins.className} text-md font-medium  cursor-pointer`}>Villa: {account.name}</h1>
+                                        <h1 class={`${poppins.className} text-md font-medium  cursor-pointer`}>Location: {account.location}</h1>
+                                        <h1 class={`${poppins.className} text-md font-medium  cursor-pointer`}>Username: {account.username}</h1>
+                                        <h1 class={`${poppins.className} text-md font-medium  cursor-pointer`}>Password: {account.password}</h1>
 
                                         <div className='flex justify-end items-end space-x-2'>
 

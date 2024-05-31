@@ -109,16 +109,17 @@ function Middle() {
   };
 
 
-  async function editVillaRequest(id) {
+  async function editVillaRequest(editVilla, villaName) {
 
-    // console.log(id, name, group)
 
-    const docRef = doc(db, "villas", id);
+    const docRef = doc(db, "villas", editVilla.id);
+
+
 
     try {
       await updateDoc(docRef, {
-        name: villaName ? villaName : name,
-        group: groupName ? groupName : group,
+        name: villaName ? villaName : editVilla.name,
+        group: group ? group : editVilla.group,
       });
 
       alert('Updated the Villa successfully');
@@ -127,6 +128,9 @@ function Middle() {
       alert(error)
       alert('Unable to update');
     }
+
+
+    
   }
   async function editGroupRequest(id, group) {
 
@@ -155,7 +159,7 @@ function Middle() {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-      alert("Not found");
+      alert("No Villas found under this group");
     } else {
       const fetchedVillas = [];
 
@@ -171,11 +175,40 @@ function Middle() {
         });
       });
 
+    }
+
+
+    // Booking update
+
+    const q2 = query(
+      collection(db, "bookings"),
+      where("group", "==", group),
+    );
+
+    const querySnapshot2 = await getDocs(q2);
+
+    if (querySnapshot2.empty) {
+      alert("No Bookings found under this group");
+    } else {
+      const fetchedBookings = [];
+
+      querySnapshot2.forEach((doc) => {
+        fetchedBookings.push(doc.id);
+      });
+
+      fetchedBookings.forEach(async (document) => {
+        const docRef = doc(db, "bookings", document);
+
+        await updateDoc(docRef, {
+          group: groupName,
+        });
+      });
+
       alert("Updated Group Name Successfully")
       window.location.reload();
 
-
     }
+
 
   }
   async function deleteGroupRequest(id, group) {
@@ -230,10 +263,7 @@ function Middle() {
       return;
     }
 
-
-
   }
-
 
 
   async function deleteVilla(villa) {
@@ -246,6 +276,38 @@ function Middle() {
       return;
     }
   }
+
+
+  async function deleteAllGroups() {
+
+    // Villas under that group must be deleted
+
+    groupObj.map(async (data) => {
+      const q = query(
+        collection(db, "villas"),
+        where("group", "==", data.group),
+      );
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach(async (docSnapshot) => {
+        await deleteDoc(doc(db, "villas", docSnapshot.id));
+      });
+
+       await deleteDoc(doc(db, "groups", data.id));
+    })
+
+
+    // Delete group from groups collection
+
+    groupObj.map(async (data) => {
+      await deleteDoc(doc(db, "groups", data.id));
+    })
+
+    alert("Deleted All Groups Successfully")
+    window.location.reload();
+
+  }
+
 
 
   const handleGroupDropdown = (event) => {
@@ -266,6 +328,8 @@ function Middle() {
                   <h3 class="text-xl font-semibold text-gray-900 ">
                     Create New Villa
                   </h3>
+
+
                   <button onClick={() => setVillaModal(null)} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -379,15 +443,19 @@ function Middle() {
                     className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 w-96"
                   />
                   <h1 className={`${poppins.className} text-lg font-medium`}>Enter Group Name</h1>
-                  <input
-                    onChange={(e) => setGroupName(e.target.value)}
-                    value={groupName}
-                    type="text"
-                    placeholder="Group 1"
-                    className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 w-96"
-                  />
+                  <select
+                    value={group}
+                    onChange={handleGroupDropdown}
+                    className="block w-96 py-2 px-5 leading-tight border border-gray-700 focus:outline-none cursor-pointer"
+                  >
+                    {groupObj.map((group, index) => (
+                      <option key={index} value={group.name}>
+                        {group.name}
+                      </option>
+                    ))}
+                  </select>
 
-                  <div type="submit" onClick={() => editVillaRequest(editVilla.id, villaName, groupName)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
+                  <div type="submit" onClick={() => editVillaRequest(editVilla, villaName)} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border-2 border-black rounded-full hover:text-white group hover:bg-gray-600">
                     <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
                     <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -450,6 +518,10 @@ function Middle() {
           <div class="flex justify-center items-center space-x-5">
             <div onClick={() => { setGroupModal(true); setVillaModal(false); }} className='flex justify-center items-center px-5 py-2 border border-gray-300 transition hover:ease-in hover:bg-gray-300  shadow-md rounded-lg  cursor-pointer'>
               <h1 class={`${poppins.className} text-md  `}>Create New Group</h1>
+            </div>
+
+            <div onClick={deleteAllGroups} className='bg-red-500 text-white border border-red-600 ml-10 flex justify-center items-center px-5 py-2  transition hover:ease-in hover:bg-red-600 shadow-md rounded-lg  cursor-pointer'>
+              <h1 class={`${poppins.className} text-md  `}>Delete All Groups</h1>
             </div>
           </div>
         </div>

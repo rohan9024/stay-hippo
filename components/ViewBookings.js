@@ -53,7 +53,7 @@ function ViewBookings() {
                     const fetchedBookings = [];
 
                     querySnapshot.forEach((doc) => {
-                        fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, flexibility: doc.data().flexibility, notes: doc.data().notes, location: doc.data().location, group: doc.data().group,days: doc.data().days });
+                        fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, flexibility: doc.data().flexibility, notes: doc.data().notes, location: doc.data().location, group: doc.data().group, days: doc.data().days });
                     });
 
                     console.log(fetchedBookings)
@@ -147,8 +147,23 @@ function ViewBookings() {
     let totalSum = 0;
 
     const parseDate = (dateString) => {
-        const [day, month, year] = dateString.split('/').map(Number);
-        return new Date(year, month - 1, day);
+
+        if (dateString) {
+            // const dateString = "25-12/2020"; // Example date string
+            const [day, month, year] = dateString.split(/[/\-]/).map(Number);
+
+            // console.log(day);   // Output: 25
+            // console.log(month); // Output: 12
+            // console.log(year);  // Output: 2020
+
+            //         const [day, month, year] = dateString.split('/').map(Number);
+            return new Date(year, month - 1, day);
+        }
+        else {
+            return;
+        }
+
+
     };
     const sortBookingsByCheckInDate = (bookings) => {
         return bookings.sort((a, b) => parseDate(a.checkIn) - parseDate(b.checkIn));
@@ -192,17 +207,17 @@ function ViewBookings() {
 
 
         bookingsObj.map(async (data) => {
+
             await deleteDoc(doc(db, "bookings", data.id));
         })
 
         alert("Deleted All Enquiries Successfully")
-        window.location.reload();
+        // window.location.reload();
 
     }
 
     const sortedBookingsWithoutId = sortedBookings.map(({ id, ...rest }) => rest);
 
-    console.log("without id: ", sortedBookingsWithoutId)
 
     return (
         <>
