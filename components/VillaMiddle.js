@@ -321,7 +321,7 @@ function VillaMiddle() {
           {bookingsObj.map((booking) => {
 
             return (
-              <div className='flex justify-between items-center bg-gradient-to-r from-indigo-400 to-cyan-400 w-full px-10 py-4 mt-5  rounded-2xl '>
+              <div className='flex justify-between items-center bg-gradient-to-r from-green-400 to-emerald-500 w-full px-10 py-4 mt-5  rounded-2xl '>
                 <h1 class={`${poppins.className} text-sm font-semibold `}> {bmcount++}. {booking.name}</h1>
                 <h1 class={`${poppins.className} text-sm font-semibold `}>Rs. {booking.maximum}</h1>
               </div>
