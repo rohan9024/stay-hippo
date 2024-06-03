@@ -162,11 +162,7 @@ function Homepage() {
                     <Link href="/terms-conditions" className={`${poppins.className}text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Terms & Conditions</Link>
                 </div>
             )
-
                 : (
-
-
-
                     <>
 
                         <div>

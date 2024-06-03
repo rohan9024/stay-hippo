@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Inter, Raleway } from 'next/font/google';
+import { Inter, Poppins, Raleway } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 
 
@@ -18,6 +18,10 @@ const raleway = Raleway({
 });
 
 const inter = Inter({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+});
+const poppins = Poppins({
   weight: ['400', '700'],
   subsets: ['latin'],
 });
@@ -39,6 +43,7 @@ function VillaMiddle() {
 
 
   var bcount = 1;
+  var bmcount = 1;
 
   useEffect(() => {
     if (!fetch) {
@@ -245,7 +250,7 @@ function VillaMiddle() {
           </div>
         </div>
 
-        <div class={`${inter.className} relative overflow-x-auto mt-10`}>
+        <div class={`${inter.className} hidden md:flex relative overflow-x-auto mt-10`}>
           <table class="min-w-full text-sm text-left">
             <thead class="text-md border border-gray-800">
               <tr>
@@ -309,6 +314,20 @@ function VillaMiddle() {
             </tbody>
           </table>
         </div>
+
+        {/* Visible on mobile screens */}
+        <div className='flex flex-col justify-center items-center md:hidden w-screen px-10 space-y-5 my-10'>
+       
+          {bookingsObj.map((booking) => (
+            <div className='flex justify-between items-center bg-gradient-to-r from-indigo-400 to-cyan-400 w-full px-10 py-4  rounded-2xl '>
+              <h1 class={`${poppins.className} text-sm font-semibold `}> {bmcount++}. {booking.name}</h1>
+              <h1 class={`${poppins.className} text-sm font-semibold `}>Rs. {booking.maximum}</h1>
+            </div>
+          ))}
+
+
+        </div>
+
 
 
       </div>
