@@ -316,14 +316,19 @@ function VillaMiddle() {
         </div>
 
         {/* Visible on mobile screens */}
-        <div className='flex flex-col justify-center items-center md:hidden w-screen px-10 space-y-5 my-10'>
-       
-          {bookingsObj.map((booking) => (
-            <div className='flex justify-between items-center bg-gradient-to-r from-indigo-400 to-cyan-400 w-full px-10 py-4  rounded-2xl '>
-              <h1 class={`${poppins.className} text-sm font-semibold `}> {bmcount++}. {booking.name}</h1>
-              <h1 class={`${poppins.className} text-sm font-semibold `}>Rs. {booking.maximum}</h1>
-            </div>
-          ))}
+        <div className='flex flex-col justify-center items-center md:hidden w-screen px-10  my-10'>
+
+          {bookingsObj.map((booking) => {
+
+            return (
+              <div className='flex justify-between items-center bg-gradient-to-r from-indigo-400 to-cyan-400 w-full px-10 py-4 mt-5  rounded-2xl '>
+                <h1 class={`${poppins.className} text-sm font-semibold `}> {bmcount++}. {booking.name}</h1>
+                <h1 class={`${poppins.className} text-sm font-semibold `}>Rs. {booking.maximum}</h1>
+              </div>
+            )
+          })}
+
+          <h1 class={`${poppins.className} text-lg font-semibold mt-12`}>Total Sum: {totalSum}</h1>
 
 
         </div>
