@@ -323,7 +323,16 @@ function VillaMiddle() {
             return (
               <div className='flex justify-between items-center bg-gradient-to-r from-indigo-400 to-cyan-400 w-full px-10 py-4 mt-5  rounded-2xl '>
                 <h1 class={`${poppins.className} text-sm font-semibold `}> {bmcount++}. {booking.name}</h1>
-                <h1 class={`${poppins.className} text-sm font-semibold `}>Rs. {booking.maximum}</h1>
+                <div class="flex flex-col">
+                  <div class="flex justify-center items-center">
+                    <img src="/amount.png" alt="amount" className='w-7 h-7' />
+                    <h1 class={`${poppins.className} text-sm font-semibold ml-2 `}> {booking.maximum}</h1>
+                  </div>
+                  <div class="flex justify-center items-center">
+                    <img src="/phone.png" alt="phone" className='w-7 h-7' />
+                    <h1 class={`${poppins.className} text-sm font-semibold ml-2 `}> {booking.contact}</h1>
+                  </div>
+                </div>
               </div>
             )
           })}
