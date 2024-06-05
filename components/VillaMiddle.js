@@ -263,8 +263,8 @@ function VillaMiddle() {
                 <th scope="col" class="px-4 py-4">Check In</th>
                 <th scope="col" class="px-4 py-4">Check Out</th>
                 <th scope="col" class="px-4 py-4">People</th>
-                <th scope="col" class="px-4 py-4">Max Budget</th>
                 <th scope="col" class="px-4 py-4">Min Budget</th>
+                <th scope="col" class="px-4 py-4">Max Budget</th>
               </tr>
             </thead>
             {bookingsObj.map((booking) => {
@@ -300,7 +300,6 @@ function VillaMiddle() {
                     <td class="px-4 py-4">
                       <h1 className='truncate w-16'>{booking.people}</h1>
                     </td>
-
                     <td class="px-4 py-4">
                       <h1 className='truncate w-16'>{booking.minimum}</h1>
                     </td>
@@ -315,7 +314,7 @@ function VillaMiddle() {
 
             <tbody>
               <tr>
-                <td colSpan="10" className="px-4 py-4 text-right font-bold">
+                <td colSpan="11" className="px-4 py-4 text-right font-bold">
                   Total Sum: {totalSum}
                 </td>
               </tr>
