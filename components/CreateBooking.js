@@ -101,12 +101,12 @@ function CreateBooking() {
     if (name && contact && people && days && minimum && maximum && group && checkOut && checkIn && notes && location && flexibility) {
       // const total = maximum * days;
 
-      // let today = new Date();
-      // let dd = String(today.getDate()).padStart(2, '0');
-      // let mm = String(today.getMonth() + 1).padStart(2, '0');
-      // let yyyy = today.getFullYear();
+      let today = new Date();
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0');
+      let yyyy = today.getFullYear();
 
-      // today = dd + '/' + mm + '/' + yyyy;
+      today = dd + '/' + mm + '/' + yyyy;
 
       // console.log({
       //   name: name,
@@ -132,7 +132,8 @@ function CreateBooking() {
           maximum: parseInt(maximum),
           minimum: parseInt(minimum),
           days: parseInt(days),
-          people: parseInt(people)
+          people: parseInt(people),
+          createdAt: today
         });
         alert('Created Enquiry Successfully');
         window.location.reload();

@@ -56,7 +56,6 @@ function ViewBookings() {
                         fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, flexibility: doc.data().flexibility, notes: doc.data().notes, location: doc.data().location, group: doc.data().group, days: doc.data().days });
                     });
 
-                    console.log(fetchedBookings)
                     setBookingsObj(fetchedBookings);
                     setFetch(true);
                 }
@@ -149,14 +148,7 @@ function ViewBookings() {
     const parseDate = (dateString) => {
 
         if (dateString) {
-            // const dateString = "25-12/2020"; // Example date string
             const [day, month, year] = dateString.split(/[/\-]/).map(Number);
-
-            // console.log(day);   // Output: 25
-            // console.log(month); // Output: 12
-            // console.log(year);  // Output: 2020
-
-            //         const [day, month, year] = dateString.split('/').map(Number);
             return new Date(year, month - 1, day);
         }
         else {
@@ -165,16 +157,16 @@ function ViewBookings() {
 
 
     };
-    const sortBookingsByCheckInDate = (bookings) => {
-        return bookings.sort((a, b) => parseDate(a.checkIn) - parseDate(b.checkIn));
-    };
+    // const sortBookingsByCheckInDate = (bookings) => {
+    //     return bookings.sort((a, b) => parseDate(a.checkIn) - parseDate(b.checkIn));
+    // };
 
-    const [sortedBookings, setSortedBookings] = useState([]);
+    // const [sortedBookings, setSortedBookings] = useState([]);
 
-    React.useEffect(() => {
-        const sorted = sortBookingsByCheckInDate(bookingsObj);
-        setSortedBookings(sorted);
-    }, [bookingsObj]);
+    // React.useEffect(() => {
+    //     const sorted = sortBookingsByCheckInDate(bookingsObj);
+    //     setSortedBookings(sorted);
+    // }, [bookingsObj]);
 
 
     async function deletePreviousEnquiries() {
@@ -193,7 +185,7 @@ function ViewBookings() {
         //     console.log("advance")
 
         // }
-        const filteredData = sortedBookings.filter(booking => parseDate(booking.checkIn) <= today);
+        const filteredData = bookingsObj.filter(booking => parseDate(booking.checkIn) <= today);
 
         filteredData.map(async (data) => {
             await deleteDoc(doc(db, "bookings", data.id));
@@ -207,7 +199,6 @@ function ViewBookings() {
 
 
         bookingsObj.map(async (data) => {
-
             await deleteDoc(doc(db, "bookings", data.id));
         })
 
@@ -216,7 +207,7 @@ function ViewBookings() {
 
     }
 
-    const sortedBookingsWithoutId = sortedBookings.map(({ id, ...rest }) => rest);
+    const bookingsWithoutId = bookingsObj.map(({ id, ...rest }) => rest);
 
 
     return (
@@ -320,7 +311,7 @@ function ViewBookings() {
                                 <th scope="col" class="px-4 py-4">Options</th>
                             </tr>
                         </thead>
-                        {sortedBookings.map((booking) => {
+                        {bookingsObj.map((booking) => {
                             totalSum += booking.maximum;
                             return (
                                 <tbody>
@@ -382,10 +373,8 @@ function ViewBookings() {
 
 
                 <div class="flex justify-end my-10">
-                    <CsvExport data={sortedBookingsWithoutId} fileName="exported_data.csv" class="" />
+                    <CsvExport data={bookingsWithoutId} fileName="exported_data.csv" class="" />
                 </div>
-
-
 
             </div>
         </>

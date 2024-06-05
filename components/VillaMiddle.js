@@ -263,12 +263,14 @@ function VillaMiddle() {
                 <th scope="col" class="px-4 py-4">Check In</th>
                 <th scope="col" class="px-4 py-4">Check Out</th>
                 <th scope="col" class="px-4 py-4">People</th>
-                <th scope="col" class="px-4 py-4">Budget</th>
+                <th scope="col" class="px-4 py-4">Max Budget</th>
+                <th scope="col" class="px-4 py-4">Min Budget</th>
               </tr>
             </thead>
             {bookingsObj.map((booking) => {
               totalSum += parseInt(booking.maximum);
               return (
+                
                 <tbody>
                   <tr class="border border-gray-800">
                     <th scope="row" class="px-4 py-4 text-center font-medium whitespace-nowrap">
@@ -301,17 +303,14 @@ function VillaMiddle() {
                     <td class="px-4 py-4">
                       <h1 className='truncate w-16'>{booking.maximum}</h1>
                     </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-16'>{booking.minimum}</h1>
+                    </td>
                   </tr>
                 </tbody>
               );
             })}
-            <tbody>
-              <tr>
-                <td colSpan="10" className="px-4 py-4 text-right font-bold">
-                  Total Sum: {totalSum}
-                </td>
-              </tr>
-            </tbody>
+  
           </table>
         </div>
 

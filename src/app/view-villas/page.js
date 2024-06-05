@@ -88,7 +88,7 @@ function page() {
                             }}
                             className="px-12 py-4 lg:px-0 lg:py-0 flex justify-center items-center lg:w-[200px] lg:h-[200px] shadow-2xl rounded-xl bg-blue-400 hover:cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
                         >
-                            <h1 className={`${poppins.className} text-center lg:text-3xl text-2xl`}>
+                            <h1 className={`${poppins.className} text-center  text-2xl`}>
                                 {group.name}
                             </h1>
                         </Link>
