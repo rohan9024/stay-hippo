@@ -270,7 +270,7 @@ function VillaMiddle() {
             {bookingsObj.map((booking) => {
               totalSum += parseInt(booking.maximum);
               return (
-                
+
                 <tbody>
                   <tr class="border border-gray-800">
                     <th scope="row" class="px-4 py-4 text-center font-medium whitespace-nowrap">
@@ -300,23 +300,33 @@ function VillaMiddle() {
                     <td class="px-4 py-4">
                       <h1 className='truncate w-16'>{booking.people}</h1>
                     </td>
-                    <td class="px-4 py-4">
-                      <h1 className='truncate w-16'>{booking.maximum}</h1>
-                    </td>
+
                     <td class="px-4 py-4">
                       <h1 className='truncate w-16'>{booking.minimum}</h1>
+                    </td>
+                    <td class="px-4 py-4">
+                      <h1 className='truncate w-16'>{booking.maximum}</h1>
                     </td>
                   </tr>
                 </tbody>
               );
             })}
-  
+
+
+            <tbody>
+              <tr>
+                <td colSpan="10" className="px-4 py-4 text-right font-bold">
+                  Total Sum: {totalSum}
+                </td>
+              </tr>
+            </tbody>
+
           </table>
         </div>
 
         {/* Visible on mobile screens */}
         <div className='flex flex-col justify-center items-center md:hidden w-screen px-10  my-10'>
-        <h1 class={`${poppins.className} text-xl font-bold mt-4 text-green-600`}>Total Sum: {totalSum}</h1>
+          <h1 class={`${poppins.className} text-xl font-bold mt-4 text-green-600`}>Total Sum: {totalSum}</h1>
 
           {bookingsObj.map((booking) => {
 
