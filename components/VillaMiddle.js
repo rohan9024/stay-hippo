@@ -179,6 +179,11 @@ function VillaMiddle() {
   const totalBookings = bookingsObj.length;
   let totalSum = 0;
 
+
+
+  bookingsObj.map((booking) => {
+    totalSum += parseInt(booking.maximum);
+  })
   return (
     <>
       <ToastContainer
@@ -250,6 +255,11 @@ function VillaMiddle() {
           </div>
         </div>
 
+        <div class="hidden md:flex   justify-between items-center pt-10">
+          <h1 class={`${inter.className} text-2xl font-bold italic text-green-600`}>Total Sum: {totalSum}</h1>
+        </div>
+
+
         <div class={`${inter.className} hidden md:flex relative overflow-x-auto mt-10`}>
           <table class="min-w-full text-sm text-left">
             <thead class="text-md border border-gray-800">
@@ -268,7 +278,7 @@ function VillaMiddle() {
               </tr>
             </thead>
             {bookingsObj.map((booking) => {
-              totalSum += parseInt(booking.maximum);
+              // totalSum += parseInt(booking.maximum);
               return (
 
                 <tbody>
@@ -312,13 +322,13 @@ function VillaMiddle() {
             })}
 
 
-            <tbody>
+            {/* <tbody>
               <tr>
                 <td colSpan="11" className="px-4 py-4 text-right font-bold">
                   Total Sum: {totalSum}
                 </td>
               </tr>
-            </tbody>
+            </tbody> */}
 
           </table>
         </div>
