@@ -316,6 +316,7 @@ function VillaMiddle() {
 
         {/* Visible on mobile screens */}
         <div className='flex flex-col justify-center items-center md:hidden w-screen px-10  my-10'>
+        <h1 class={`${poppins.className} text-xl font-bold mt-4 text-green-600`}>Total Sum: {totalSum}</h1>
 
           {bookingsObj.map((booking) => {
 
@@ -336,7 +337,6 @@ function VillaMiddle() {
             )
           })}
 
-          <h1 class={`${poppins.className} text-lg font-semibold mt-12`}>Total Sum: {totalSum}</h1>
 
 
         </div>
