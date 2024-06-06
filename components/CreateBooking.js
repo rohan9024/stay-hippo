@@ -102,12 +102,17 @@ function CreateBooking() {
       // const total = maximum * days;
 
       let today = new Date();
+
       let dd = String(today.getDate()).padStart(2, '0');
-      let mm = String(today.getMonth() + 1).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
       let yyyy = today.getFullYear();
-
-      today = dd + '/' + mm + '/' + yyyy;
-
+      
+      let hh = String(today.getHours()).padStart(2, '0');
+      let min = String(today.getMinutes()).padStart(2, '0');
+      let ss = String(today.getSeconds()).padStart(2, '0');
+      
+      today = `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss}`;
+      
       // console.log({
       //   name: name,
       //   contact: contact,

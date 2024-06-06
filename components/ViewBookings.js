@@ -52,6 +52,8 @@ function ViewBookings() {
         }
     }, [fetch]);
 
+
+
     const createBooking = async () => {
         if (name && contact && people && budgetPerPerson && days) {
             const total = budgetPerPerson * days;
@@ -92,14 +94,62 @@ function ViewBookings() {
         alert("Deleted Booking Successfully");
         window.location.reload();
     };
+    // Old ones
+    // const parseDate = (dateString) => {
+    //     if (dateString) {
+    //         const [day, month, year] = dateString.split(/[/\-]/).map(Number);
+    //         return new Date(year, month - 1, day);
+    //     }
+    //     return null;
+    // };
 
-    const parseDate = (dateString) => {
-        if (dateString) {
-            const [day, month, year] = dateString.split(/[/\-]/).map(Number);
-            return new Date(year, month - 1, day);
-        }
-        return null;
+    // New ones
+    const parseDateTime = (dateTimeString) => {
+        if (!dateTimeString || typeof dateTimeString !== 'string') return null; // Handle undefined, null, or non-string dates
+    
+        const [datePart, timePart] = dateTimeString.split(' ');
+        if (!datePart || !timePart) return null;
+    
+        const [day, month, year] = datePart.split('/').map(Number);
+        const [hours, minutes, seconds] = timePart.split(':').map(Number);
+    
+        if (!day || !month || !year || !hours || !minutes || !seconds) return null;
+    
+        return new Date(year, month - 1, day, hours, minutes, seconds);
     };
+    
+
+    // Old ones
+    // const sortedBookings = bookingsObj.sort((a, b) => {
+    //     const dateA = parseDate(a.createdAt);
+    //     const dateB = parseDate(b.createdAt);
+    //     if (dateA && dateB) {
+    //         return dateA - dateB;
+    //     } else if (dateA) {
+    //         return -1;  // a comes first
+    //     } else if (dateB) {
+    //         return 1;   // b comes first
+    //     } else {
+    //         return 0;   // both are equal
+    //     }
+    // });
+
+    // New ones
+    const sortedBookings = bookingsObj.sort((a, b) => {
+        const dateA = parseDateTime(a.createdAt);
+        const dateB = parseDateTime(b.createdAt);
+
+        if (!dateA) return 1; // Place undefined dates after defined ones
+        if (!dateB) return -1;
+
+        return dateA - dateB;
+    });
+
+
+
+    // sortedBookings.map((booking, index) => {
+    //     console.log(booking.createdAt)
+    // })
 
     const deletePreviousEnquiries = async () => {
         const today = new Date();
@@ -120,7 +170,7 @@ function ViewBookings() {
     };
     const deleteSelected = async () => {
         const selectedArray = Array.from(selectedBookings);
-        
+
         selectedArray.forEach(async (id) => {
             try {
                 await deleteDoc(doc(db, "bookings", id));
@@ -128,13 +178,11 @@ function ViewBookings() {
                 console.error(`Error deleting document with ID ${id}: `, error);
             }
         });
-    
+
         alert("Deleted Selected Enquiries Successfully");
-    
-        // // Reload the page to refresh the state
-        // window.location.reload();
+
     };
-    
+
     const handleCheckboxChange = (id) => {
         setSelectedBookings((prevSelected) => {
             const newSelected = new Set(prevSelected);
@@ -148,6 +196,9 @@ function ViewBookings() {
     };
 
     const bookingsWithoutId = bookingsObj.map(({ id, ...rest }) => rest);
+
+
+
 
     return (
         <>
@@ -202,7 +253,7 @@ function ViewBookings() {
                                 <th scope="col" className="px-4 py-4 border border-gray-300 bg-gray-100">Options</th>
                             </tr>
                         </thead>
-                        {bookingsObj.map((booking, index) => (
+                        {sortedBookings.map((booking, index) => (
                             <tbody key={booking.id}>
                                 <tr className="border border-gray-300">
                                     <th scope="row" className="px-4 py-4 text-center font-medium whitespace-nowrap border border-gray-200 bg-gray-50">
