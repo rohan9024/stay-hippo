@@ -94,14 +94,7 @@ function ViewBookings() {
         alert("Deleted Booking Successfully");
         window.location.reload();
     };
-    // Old ones
-    // const parseDate = (dateString) => {
-    //     if (dateString) {
-    //         const [day, month, year] = dateString.split(/[/\-]/).map(Number);
-    //         return new Date(year, month - 1, day);
-    //     }
-    //     return null;
-    // };
+
 
     // New ones
     const parseDateTime = (dateTimeString) => {
@@ -118,21 +111,6 @@ function ViewBookings() {
         return new Date(year, month - 1, day, hours, minutes, seconds);
     };
     
-
-    // Old ones
-    // const sortedBookings = bookingsObj.sort((a, b) => {
-    //     const dateA = parseDate(a.createdAt);
-    //     const dateB = parseDate(b.createdAt);
-    //     if (dateA && dateB) {
-    //         return dateA - dateB;
-    //     } else if (dateA) {
-    //         return -1;  // a comes first
-    //     } else if (dateB) {
-    //         return 1;   // b comes first
-    //     } else {
-    //         return 0;   // both are equal
-    //     }
-    // });
 
     // New ones
     const sortedBookings = bookingsObj.sort((a, b) => {

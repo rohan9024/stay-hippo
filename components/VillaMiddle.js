@@ -86,7 +86,7 @@ function VillaMiddle() {
             const fetchedBookings = [];
 
             querySnapshot.forEach((doc) => {
-              fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, flexibility: doc.data().flexibility, notes: doc.data().notes, location: doc.data().location });
+              fetchedBookings.push({ id: doc.id, name: doc.data().name, people: doc.data().people, minimum: doc.data().minimum, maximum: doc.data().maximum, contact: doc.data().contact, checkIn: doc.data().checkIn, checkOut: doc.data().checkOut, flexibility: doc.data().flexibility, notes: doc.data().notes, location: doc.data().location, createdAt: doc.data().createdAt });
             });
 
             console.log(fetchedBookings)
@@ -184,6 +184,43 @@ function VillaMiddle() {
   bookingsObj.map((booking) => {
     totalSum += parseInt(booking.maximum);
   })
+
+
+
+  // New ones
+  const parseDateTime = (dateTimeString) => {
+    if (!dateTimeString || typeof dateTimeString !== 'string') return null; // Handle undefined, null, or non-string dates
+
+    const [datePart, timePart] = dateTimeString.split(' ');
+    if (!datePart || !timePart) return null;
+
+    const [day, month, year] = datePart.split('/').map(Number);
+    const [hours, minutes, seconds] = timePart.split(':').map(Number);
+
+    if (!day || !month || !year || !hours || !minutes || !seconds) return null;
+
+    return new Date(year, month - 1, day, hours, minutes, seconds);
+  };
+
+
+  // New ones
+  const sortedBookings = bookingsObj.sort((a, b) => {
+    const dateA = parseDateTime(a.createdAt);
+    const dateB = parseDateTime(b.createdAt);
+
+    if (!dateA) return 1; // Place undefined dates after defined ones
+    if (!dateB) return -1;
+
+    return dateA - dateB;
+  });
+
+
+
+  // sortedBookings.map((booking, index) => {
+  //     console.log(booking.createdAt)
+  // })
+
+
   return (
     <>
       <ToastContainer
@@ -277,7 +314,7 @@ function VillaMiddle() {
                 <th scope="col" class="px-4 py-4">Max Budget</th>
               </tr>
             </thead>
-            {bookingsObj.map((booking) => {
+            {sortedBookings.map((booking) => {
               // totalSum += parseInt(booking.maximum);
               return (
 
