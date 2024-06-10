@@ -1,23 +1,24 @@
 "use client"
 import Papa from 'papaparse';
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from '../components/Navbar';
 import { Gruppo, Inter, Raleway, VT323 } from 'next/font/google';
 import { useRouter } from 'next/navigation';
-import { AuthContext } from "../contexts/AuthContext"
 import DatePicker from 'react-datepicker';
-import Select from 'react-select';
-
-
 import 'react-datepicker/dist/react-datepicker.css';
+import { addDays } from 'date-fns';
+import { registerLocale, setDefaultLocale } from 'react-datepicker';
+
 import 'react-time-picker/dist/TimePicker.css';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '../firebase';
-import VillaNavbar from './VillaNavbar';
-import CsvExport from '../CsvExport';
+import enGB from 'date-fns/locale/en-GB';
+import { format } from 'date-fns';
+
+registerLocale('en-GB', enGB);
+
 
 const raleway = Raleway({
   weight: ['400', '700'],
@@ -36,14 +37,10 @@ function CreateBooking() {
   const [name, setName] = useState(null)
   const [people, setPeople] = useState(null)
   const [days, setDays] = useState(null)
-  const [checkOut, setCheckOut] = useState(null)
-  const [checkIn, setCheckIn] = useState(null)
-  const [budgetPerPerson, setBudgetPerPerson] = useState(null)
   const [contact, setContact] = useState(null)
   const [minimum, setMinimum] = useState()
   const [location, setLocation] = useState()
   const [maximum, setMaximum] = useState()
-  const [selectedDate, setSelectedDate] = useState()
   const [notes, setNotes] = useState()
   const [flexibility, setFlexibility] = useState()
   const [villaName, setVillaName] = useState('N/A')
@@ -56,6 +53,8 @@ function CreateBooking() {
   const [CSVData, setCSVData] = useState([])
   var bcount = 1;
 
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
 
   // useEffect(() => {
   //   if (!fetch) {
@@ -95,10 +94,14 @@ function CreateBooking() {
   }
 
 
+  const formatDate = (date) => {
+    return date ? format(date, 'dd/MM/yyyy') : ''; // Use date-fns format function
+  };
+
 
   const createBooking = async () => {
 
-    if (name && contact && people && days && minimum && maximum && group && checkOut && checkIn && notes && location && flexibility) {
+    if (name && contact && people && days && minimum && maximum && group && checkOutDate && checkInDate && notes && location && flexibility) {
       // const total = maximum * days;
 
       let today = new Date();
@@ -106,45 +109,45 @@ function CreateBooking() {
       let dd = String(today.getDate()).padStart(2, '0');
       let mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
       let yyyy = today.getFullYear();
-      
+
       let hh = String(today.getHours()).padStart(2, '0');
       let min = String(today.getMinutes()).padStart(2, '0');
       let ss = String(today.getSeconds()).padStart(2, '0');
-      
+
       today = `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss}`;
-      
-      // console.log({
-      //   name: name,
-      //   contact: contact,
-      //   group: group,
-      //   maximum: parseInt(maximum),
-      //   minimum: parseInt(minimum),
-      //   days: parseInt(days),
-      //   people: parseInt(people),
-      //   checkIn: checkIn,
-      //   checkOut: checkOut,
-      // })
-      try {
-        await addDoc(collection(db, 'bookings'), {
-          name: name,
-          contact: contact,
-          group: group,
-          checkIn: checkIn,
-          checkOut: checkOut,
-          flexibility: flexibility,
-          location: location,
-          notes: notes,
-          maximum: parseInt(maximum),
-          minimum: parseInt(minimum),
-          days: parseInt(days),
-          people: parseInt(people),
-          createdAt: today
-        });
-        alert('Created Enquiry Successfully');
-        window.location.reload();
-      } catch (error) {
-        alert('Something went wrong');
-      }
+
+      console.log({
+        name: name,
+        contact: contact,
+        group: group,
+        maximum: parseInt(maximum),
+        minimum: parseInt(minimum),
+        days: parseInt(days),
+        people: parseInt(people),
+        checkIn: formatDate(checkInDate),
+        checkOut: formatDate(checkOutDate),
+      })
+      // try {
+      //   await addDoc(collection(db, 'bookings'), {
+      //     name: name,
+      //     contact: contact,
+      //     group: group,
+      //     checkIn: checkIn,
+      //     checkOut: checkOut,
+      //     flexibility: flexibility,
+      //     location: location,
+      //     notes: notes,
+      //     maximum: parseInt(maximum),
+      //     minimum: parseInt(minimum),
+      //     days: parseInt(days),
+      //     people: parseInt(people),
+      //     createdAt: today
+      //   });
+      //   alert('Created Enquiry Successfully');
+      //   window.location.reload();
+      // } catch (error) {
+      //   alert('Something went wrong');
+      // }
     }
     else {
       alert('Something is missing')
@@ -496,21 +499,34 @@ function CreateBooking() {
 
               <div className=" flex flex-col justify-start items-start space-y-4">
                 <h1 className={`${inter.className} text-md font-bold `}>Check In</h1>
-                <input
-                  onChange={(e) => setCheckIn(e.target.value)}
-                  value={checkIn}
-                  type="text"
-                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent w-96 rounded-lg"
-                />
+
+                <div className='w-40 flex justify-around items-center cursor-pointer border border-gray-300  rounded-lg focus:outline-none px-5' >
+                  <img src="/edit.png" alt="edit" className='w-5 h-5' />
+
+                  <DatePicker
+                    selected={checkInDate}
+                    onChange={(date) => setCheckInDate(date)}
+                    placeholderText="Check In"
+                    dateFormat="dd/MM/yyyy"
+                    locale="en-GB"
+                    className=" text-gray-900 text-sm rounded-lg  block w-full pl-3 p-2.5  focus:outline-none"
+                  />
+                </div>
               </div>
               <div className=" flex flex-col justify-start items-start space-y-4">
                 <h1 className={`${inter.className} text-md font-bold `}>Check Out</h1>
-                <input
-                  onChange={(e) => setCheckOut(e.target.value)}
-                  value={checkOut}
-                  type="text"
-                  className="placeholder:text-gray-500  px-5 py-2 outline-none border border-gray-300 bg-transparent  w-96 rounded-lg"
+
+
+                <DatePicker
+                  selected={checkOutDate}
+                  onChange={(date) => setCheckOutDate(date)}
+                  placeholderText="Check Out"
+                  dateFormat="dd/MM/yyyy"
+                  locale="en-GB"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
+
+
               </div>
 
             </div>
@@ -637,13 +653,13 @@ function CreateBooking() {
 
           <div class="flex justify-end">
 
-          <div type="submit" onClick={submitToFirebase} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border border-gray-800 rounded-full hover:text-white group hover:bg-gray-600">
-            <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
-            <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </span>
-            <span class="relative">Submit</span>
-          </div>
+            <div type="submit" onClick={submitToFirebase} class=" cursor-pointer w-96 relative inline-flex items-center px-12 py-2 overflow-hidden text-lg font-medium text-black border border-gray-800 rounded-full hover:text-white group hover:bg-gray-600">
+              <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+              <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </span>
+              <span class="relative">Submit</span>
+            </div>
           </div>
 
 

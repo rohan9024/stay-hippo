@@ -34,6 +34,7 @@ function VillaNavbar() {
                 <div class="flex justify-center items-center space-x-10">
                     <Link href="/villa-panel" class={`${poppins.className} hidden md:flex text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Villa Panel</Link>
                     <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} hidden md:flex text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Education</a>
+                    <a href="https://www.youtube.com/watch?v=YnQNfrwtEDI&list=PLo8-DS458G5vCliMQ9GcQjPMwFYFR3UqI&index=22" className={`${poppins.className} hidden md:flex text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Youtube</a>
                     <div onClick={() => {
                         router.push('/villa-login');
                         if (typeof window !== 'undefined') {

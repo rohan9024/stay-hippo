@@ -144,6 +144,7 @@ function Homepage() {
                 <div className='hidden md:flex justify-center items-center space-x-10'>
                     <Link href="/about-us" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>About Us</Link>
                     <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Education</a>
+                    <a href="https://www.youtube.com/watch?v=YnQNfrwtEDI&list=PLo8-DS458G5vCliMQ9GcQjPMwFYFR3UqI&index=22" className={`${poppins.className} hidden md:flex text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Youtube</a>
                     <Link href="/terms-conditions" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Terms & Conditions</Link>
                 </div>
 
@@ -159,7 +160,8 @@ function Homepage() {
                 <div className='flex flex-col justify-start items-center h-screen my-10 space-y-10 '>
                     <Link href="/about-us" className={`${poppins.className}text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>About Us</Link>
                     <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Education</a>
-                    <Link href="/terms-conditions" className={`${poppins.className}text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Terms & Conditions</Link>
+                    <a href="https://www.youtube.com/watch?v=YnQNfrwtEDI&list=PLo8-DS458G5vCliMQ9GcQjPMwFYFR3UqI&index=22" className={`${poppins.className} text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Youtube</a>
+                    <Link href="/terms-conditions" className={`${poppins.className} text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Terms & Conditions</Link>
                 </div>
             )
                 : (
@@ -206,7 +208,7 @@ function Homepage() {
                                 </Link>
                             </div>
                         </div> */}
-                        <div className="w-screen md:py-4 py-6 flex justify-center items-center border-t border-gray-900 ">
+                        <div className="w-screen md:py-4 py-6 flex justify-center items-center border-t border-gray-900 bottom-0 fixed">
                             <div className="flex flex-col items-center">
                                 <h1 className={`${poppins.className} text-md font-medium`}>Copyright © 2024, Luna, All rights reserved.</h1>
 
