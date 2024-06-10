@@ -299,19 +299,19 @@ function VillaMiddle() {
 
         <div class={`${inter.className} hidden md:flex relative overflow-x-auto mt-10`}>
           <table class="min-w-full text-sm text-left">
-            <thead class="text-md border border-gray-800">
+            <thead class="text-md border border-gray-300">
               <tr>
-                <th scope="col" class="px-4 py-4">Sr. No.</th>
-                <th scope="col" class="px-4 py-4">Name</th>
-                <th scope="col" class="px-4 py-4">Contact</th>
-                <th scope="col" class="px-4 py-4">Location</th>
-                <th scope="col" class="px-4 py-4">Flexibility</th>
-                <th scope="col" class="px-4 py-4">Notes</th>
-                <th scope="col" class="px-4 py-4">Check In</th>
-                <th scope="col" class="px-4 py-4">Check Out</th>
-                <th scope="col" class="px-4 py-4">People</th>
-                <th scope="col" class="px-4 py-4">Min Budget</th>
-                <th scope="col" class="px-4 py-4">Max Budget</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Sr. No.</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Name</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Contact</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Location</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Flexibility</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Notes</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Check In</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Check Out</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">People</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Min Budget</th>
+                <th scope="col" class="px-4 py-4  border border-gray-300 bg-gray-100">Max Budget</th>
               </tr>
             </thead>
             {sortedBookings.map((booking) => {
@@ -319,38 +319,38 @@ function VillaMiddle() {
               return (
 
                 <tbody>
-                  <tr class="border border-gray-800">
-                    <th scope="row" class="px-4 py-4 text-center font-medium whitespace-nowrap">
+                  <tr class="border border-gray-300">
+                    <th scope="row" class="px-4 py-4 text-center font-medium whitespace-nowrap border border-gray-200 bg-gray-50">
                       <h1>{bcount++}</h1>
                     </th>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-24'>{booking.name}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-24'>{booking.contact}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-24'>{booking.location}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-24'>{booking.flexibility}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-24'>{booking.notes}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-20'>{booking.checkIn}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-20'>{booking.checkOut}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-16'>{booking.people}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-16'>{booking.minimum}</h1>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-16'>{booking.maximum}</h1>
                     </td>
                   </tr>
