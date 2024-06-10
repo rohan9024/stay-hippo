@@ -116,38 +116,38 @@ function CreateBooking() {
 
       today = `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss}`;
 
-      console.log({
-        name: name,
-        contact: contact,
-        group: group,
-        maximum: parseInt(maximum),
-        minimum: parseInt(minimum),
-        days: parseInt(days),
-        people: parseInt(people),
-        checkIn: formatDate(checkInDate),
-        checkOut: formatDate(checkOutDate),
-      })
-      // try {
-      //   await addDoc(collection(db, 'bookings'), {
-      //     name: name,
-      //     contact: contact,
-      //     group: group,
-      //     checkIn: checkIn,
-      //     checkOut: checkOut,
-      //     flexibility: flexibility,
-      //     location: location,
-      //     notes: notes,
-      //     maximum: parseInt(maximum),
-      //     minimum: parseInt(minimum),
-      //     days: parseInt(days),
-      //     people: parseInt(people),
-      //     createdAt: today
-      //   });
-      //   alert('Created Enquiry Successfully');
-      //   window.location.reload();
-      // } catch (error) {
-      //   alert('Something went wrong');
-      // }
+      // console.log({
+      //   name: name,
+      //   contact: contact,
+      //   group: group,
+      //   maximum: parseInt(maximum),
+      //   minimum: parseInt(minimum),
+      //   days: parseInt(days),
+      //   people: parseInt(people),
+      //   checkIn: formatDate(checkInDate),
+      //   checkOut: formatDate(checkOutDate),
+      // })
+      try {
+        await addDoc(collection(db, 'bookings'), {
+          name: name,
+          contact: contact,
+          group: group,
+          checkIn: formatDate(checkInDate),
+          checkOut: formatDate(checkOutDate),
+          flexibility: flexibility,
+          location: location,
+          notes: notes,
+          maximum: parseInt(maximum),
+          minimum: parseInt(minimum),
+          days: parseInt(days),
+          people: parseInt(people),
+          createdAt: today
+        });
+        alert('Created Enquiry Successfully');
+        window.location.reload();
+      } catch (error) {
+        alert('Something went wrong');
+      }
     }
     else {
       alert('Something is missing')
@@ -501,7 +501,7 @@ function CreateBooking() {
                 <h1 className={`${inter.className} text-md font-bold `}>Check In</h1>
 
                 <div className='w-40 flex justify-around items-center cursor-pointer border border-gray-300  rounded-lg focus:outline-none px-5' >
-                  <img src="/edit.png" alt="edit" className='w-5 h-5' />
+                  <img src="/calendar.png" alt="calendar" className='w-5 h-5' />
 
                   <DatePicker
                     selected={checkInDate}
@@ -517,14 +517,20 @@ function CreateBooking() {
                 <h1 className={`${inter.className} text-md font-bold `}>Check Out</h1>
 
 
-                <DatePicker
-                  selected={checkOutDate}
-                  onChange={(date) => setCheckOutDate(date)}
-                  placeholderText="Check Out"
-                  dateFormat="dd/MM/yyyy"
-                  locale="en-GB"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
+
+                <div className='w-40 flex justify-around items-center cursor-pointer border border-gray-300  rounded-lg focus:outline-none px-5' >
+                  <img src="/calendar.png" alt="calendar" className='w-5 h-5' />
+
+                  <DatePicker
+                    selected={checkOutDate}
+                    onChange={(date) => setCheckOutDate(date)}
+                    placeholderText="Check Out"
+                    dateFormat="dd/MM/yyyy"
+                    locale="en-GB"
+                    className=" text-gray-900 text-sm rounded-lg  block w-full pl-3 p-2.5  focus:outline-none"
+                  />
+                </div>
+
 
 
               </div>
