@@ -215,6 +215,11 @@ function VillaMiddle() {
   });
 
 
+  const formatNumberWithCommas = (number) => {
+    return number.toLocaleString('en-IN');
+  };
+
+
 
   // sortedBookings.map((booking, index) => {
   //     console.log(booking.createdAt)
@@ -293,7 +298,7 @@ function VillaMiddle() {
         </div>
 
         <div class="hidden md:flex   justify-between items-center pt-10">
-          <h1 class={`${inter.className} text-2xl font-bold italic text-blue-600`}>Total Sum: {totalSum}</h1>
+          <h1 class={`${inter.className} text-2xl font-bold italic text-blue-600`}>  Total Sum: {formatNumberWithCommas(totalSum)}          </h1>
         </div>
 
 
