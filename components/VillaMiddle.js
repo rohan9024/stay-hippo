@@ -332,7 +332,7 @@ function VillaMiddle() {
                       <h1 className='truncate w-24'>{booking.name}</h1>
                     </td>
                     <td class="px-4 py-4 border border-gray-200 bg-gray-50">
-                      <h1 className='truncate w-24'>{booking.contact}</h1>
+                      <h1 className='truncate w-28'>{booking.contact}</h1>
                     </td>
                     <td class="px-4 py-4 border border-gray-200 bg-gray-50">
                       <h1 className='truncate w-24'>{booking.location}</h1>
