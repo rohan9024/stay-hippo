@@ -188,6 +188,33 @@ function VillaMiddle() {
 
 
   // New ones
+  // const parseDateTime = (dateTimeString) => {
+  //   if (!dateTimeString || typeof dateTimeString !== 'string') return null; // Handle undefined, null, or non-string dates
+
+  //   const [datePart, timePart] = dateTimeString.split(' ');
+  //   if (!datePart || !timePart) return null;
+
+  //   const [day, month, year] = datePart.split('/').map(Number);
+  //   const [hours, minutes, seconds] = timePart.split(':').map(Number);
+
+  //   if (!day || !month || !year || !hours || !minutes || !seconds) return null;
+
+  //   return new Date(year, month - 1, day, hours, minutes, seconds);
+  // };
+
+
+  // // New ones
+  // const sortedBookings = bookingsObj.sort((a, b) => {
+  //   const dateA = parseDateTime(a.createdAt);
+  //   const dateB = parseDateTime(b.createdAt);
+
+  //   if (!dateA) return 1; // Place undefined dates after defined ones
+  //   if (!dateB) return -1;
+
+  //   return dateA - dateB;
+  // });
+
+
   const parseDateTime = (dateTimeString) => {
     if (!dateTimeString || typeof dateTimeString !== 'string') return null; // Handle undefined, null, or non-string dates
 
@@ -197,13 +224,10 @@ function VillaMiddle() {
     const [day, month, year] = datePart.split('/').map(Number);
     const [hours, minutes, seconds] = timePart.split(':').map(Number);
 
-    if (!day || !month || !year || !hours || !minutes || !seconds) return null;
+    if (isNaN(day) || isNaN(month) || isNaN(year) || isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return null;
 
     return new Date(year, month - 1, day, hours, minutes, seconds);
   };
-
-
-  // New ones
   const sortedBookings = bookingsObj.sort((a, b) => {
     const dateA = parseDateTime(a.createdAt);
     const dateB = parseDateTime(b.createdAt);
@@ -213,6 +237,8 @@ function VillaMiddle() {
 
     return dateA - dateB;
   });
+
+
 
 
   const formatNumberWithCommas = (number) => {
