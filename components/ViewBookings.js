@@ -292,9 +292,9 @@ function ViewBookings() {
                                     <td className="px-4 py-4 border border-gray-300 bg-gray-50">
                                         <h1 className='truncate w-16'>{booking.days}</h1>
                                     </td>
-                                    <td className="px-4 py-4 border border-gray-300 bg-gray-50">
+                                    {/* <td className="px-4 py-4 border border-gray-300 bg-gray-50">
                                         <h1 className='truncate w-44'>{booking.createdAt}</h1>
-                                    </td>
+                                    </td> */}
                                     <td className="px-6 py-4 border border-gray-300 bg-gray-50">
                                         <div className='flex justify-around items-center w-[120px] space-x-4'>
                                             <div onClick={() => deleteBooking(booking)} className='w-32 flex justify-around items-center cursor-pointer'>

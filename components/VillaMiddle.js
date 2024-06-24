@@ -228,6 +228,8 @@ function VillaMiddle() {
 
     return new Date(year, month - 1, day, hours, minutes, seconds);
   };
+
+  
   const sortedBookings = bookingsObj.sort((a, b) => {
     const dateA = parseDateTime(a.createdAt);
     const dateB = parseDateTime(b.createdAt);
