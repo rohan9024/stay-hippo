@@ -49,9 +49,9 @@ function page() {
                 :
 
                 (<>
-                    <div className='flex flex-col justify-center items-center w-screen py-10 border-t lg:mx-0 px-6 border-gray-800'>
+                    <div className='flex flex-col justify-center items-center w-screen py-10 border-t lg:px-20 px-6 border-gray-800'>
                         <h1 className={`${poppins.className} lg:text-5xl text-3xl font-bold`}>Terms and Conditions for Luna</h1>
-                        <ul className={`${poppins.className} list-disc ml-8 pt-5`}>
+                        <ul className={`${poppins.className} list-disc ml-8 pt-5 lg:pt-10 lg:space-y-5`}>
                             <li>
                                 <strong>Introduction:</strong> Welcome to Luna. These Terms and Conditions govern your use of the Luna website and services, including all features and functionalities, recommendations, and user interfaces, as well as all content and software associated with our service.
                             </li>
