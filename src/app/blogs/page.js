@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Inter, Poppins, Raleway } from "next/font/google";
 import Link from "next/link";
-import { collection, getDocs, query, Timestamp } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 const raleway = Raleway({
@@ -45,7 +45,7 @@ function Page() {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className=" flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <Link
           href="/"
           className="object-contain rounded-full cursor-pointer p-2 transition hover:bg-gray-300 dark:bg-white hover:duration-150"
@@ -70,41 +70,35 @@ function Page() {
         {blogs.length > 0 ? (
           blogs.map((blog) => (
             <Link
-              href={{
-                pathname: `/blogs/${blog.id}`,
-                query: {
-                  id: blog.id,
-                },
-              }}
+              href={`/blogs/${blog.id}`}
               key={blog.id}
               className="w-full flex flex-col justify-start items-center"
             >
               <img
                 src={blog.imageUrl || "/default-image.png"} // Use a default image if no image URL is provided
+                srcSet={`${blog.imageUrl}?w=300 300w, ${blog.imageUrl}?w=600 600w, ${blog.imageUrl}?w=1200 1200w`} // Provide different image sizes
+                sizes="(max-width: 640px) 300px, (max-width: 1024px) 600px, 1200px" // Sizes based on screen width
                 alt={blog.title}
-                className="w-[350px] h-[250px] object-cover rounded-lg"
+                loading="lazy" // Lazy load the image
+                className="w-full h-[250px] object-cover rounded-lg"
               />
-              <div className="w-[350px] p-4">
-                <h1
-                  className={`${poppins.className} text-lg font-bold  text-left`}
-                >
+              <div className="w-full p-4">
+                <h1 className={`${poppins.className} text-lg font-bold text-left`}>
                   {blog.title}
                 </h1>
                 <p
-                  className={`${poppins.className} text-sm font-normal text-gray-400 mt-2 truncate`}
+                  className={`${poppins.className} text-sm font-normal text-gray-400 mt-2 `}
                   title={blog.desc}
                 >
                   {blog.desc.length > 100
-                    ? `${blog.desc.substring(0, 100)}...`
+                    ? `${blog.desc.substring(0, 140)}...`
                     : blog.desc}
                 </p>
               </div>
             </Link>
           ))
         ) : (
-          <p
-            className={`${poppins.className} text-xl font-bold text-center w-full`}
-          >
+          <p className={`${poppins.className} text-xl font-bold text-center w-full`}>
             No blogs available.
           </p>
         )}
