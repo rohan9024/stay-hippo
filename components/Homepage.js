@@ -146,6 +146,7 @@ function Homepage() {
                     <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Education</a>
                     <a href="https://www.youtube.com/watch?v=YnQNfrwtEDI&list=PLo8-DS458G5vCliMQ9GcQjPMwFYFR3UqI&index=22" className={`${poppins.className} hidden md:flex text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Youtube</a>
                     <Link href="/terms-conditions" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Terms & Conditions</Link>
+                    <Link href="/blogs" className={`${poppins.className} text-sm font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Blogs</Link>
                 </div>
 
 
@@ -162,6 +163,7 @@ function Homepage() {
                     <a href="https://www.sagarrchavan.in/courses/475162" className={`${poppins.className} text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Education</a>
                     <a href="https://www.youtube.com/watch?v=YnQNfrwtEDI&list=PLo8-DS458G5vCliMQ9GcQjPMwFYFR3UqI&index=22" className={`${poppins.className} text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Youtube</a>
                     <Link href="/terms-conditions" className={`${poppins.className} text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Terms & Conditions</Link>
+                    <Link href="/blogs" className={`${poppins.className} text-md font-medium cursor-pointer hover:ease-in transition  hover:text-gray-400`}>Blogs</Link>
                 </div>
             )
                 : (

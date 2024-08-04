@@ -1,6 +1,10 @@
 import { getApp, getApps, initializeApp } from "firebase/app"
 import { getFirestore } from 'firebase/firestore'
-import { getStorage } from "firebase/storage";
+
+import { getStorage, ref, uploadBytes, getDownloadURL,uploadBytesResumable } from 'firebase/storage';
+import { collection, addDoc } from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -19,4 +23,4 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
 const db = getFirestore(app)
 const storage = getStorage(app)
 
-export { db, storage };
+export { db, storage, ref, uploadBytes,uploadBytesResumable, getDownloadURL, collection, addDoc, uuidv4 };
