@@ -45,7 +45,7 @@ function Page() {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="md:hidden flex justify-center items-center">
+      <div className=" flex justify-center items-center">
         <Link
           href="/"
           className="object-contain rounded-full cursor-pointer p-2 transition hover:bg-gray-300 dark:bg-white hover:duration-150"
@@ -64,9 +64,8 @@ function Page() {
         </h1>
       </div>
 
-
       <div
-        className={`${poppins.className} md:grid md:grid-cols-3 md:gap-10 w-screen px-7 pb-10`}
+        className={`${poppins.className} md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 w-screen px-7 pb-10 md:pt-10`}
       >
         {blogs.length > 0 ? (
           blogs.map((blog) => (
@@ -78,23 +77,28 @@ function Page() {
                 },
               }}
               key={blog.id}
-              className="w-full flex flex-col items-center"
+              className="w-full flex flex-col justify-start items-center"
             >
               <img
                 src={blog.imageUrl || "/default-image.png"} // Use a default image if no image URL is provided
                 alt={blog.title}
                 className="w-[350px] h-[250px] object-cover rounded-lg"
               />
-              <h1 className={`${poppins.className} text-lg font-bold pt-4`}>
-                {blog.title}
-              </h1>
-              <h1
-                className={`${poppins.className} text-sm font-normal text-gray-400 pt-2 pb-7`}
-              >
-                {blog.desc.length > 100
-                  ? `${blog.desc.substring(0, 100)}...`
-                  : blog.desc}
-              </h1>
+              <div className="w-[350px] p-4">
+                <h1
+                  className={`${poppins.className} text-lg font-bold  text-left`}
+                >
+                  {blog.title}
+                </h1>
+                <p
+                  className={`${poppins.className} text-sm font-normal text-gray-400 mt-2 truncate`}
+                  title={blog.desc}
+                >
+                  {blog.desc.length > 100
+                    ? `${blog.desc.substring(0, 100)}...`
+                    : blog.desc}
+                </p>
+              </div>
             </Link>
           ))
         ) : (
