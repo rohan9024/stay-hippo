@@ -19,6 +19,7 @@ function Navbar() {
             <Link href="/" className={`${raleway.className} text-2xl font-bold cursor-pointer`}>Luna</Link>
                 <div class="flex justify-center items-center space-x-10">
                     <Link href="/admin-panel" class={`${poppins.className} text-sm font-medium cursor-pointer  hover:text-gray-400`}>Admin Panel</Link>
+                    <Link href="/view-callbacks" class={`${poppins.className} text-sm font-medium cursor-pointer  hover:text-gray-400`}>View Callbacks</Link>
                     <Link href="/create-blogs" class={`${poppins.className} text-sm font-medium cursor-pointer  hover:text-gray-400`}>Create Blogs</Link>
                     <Link href="/create-bookings" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>Create Enquiry</Link>
                     <Link href="/view-bookings" class={`${poppins.className} text-sm font-medium cursor-pointer   hover:text-gray-400`}>View Enquiries</Link>
