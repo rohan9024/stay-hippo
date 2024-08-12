@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/Navbar";
@@ -8,9 +8,9 @@ import { Inter, Poppins, Raleway } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "../contexts/AuthContext";
 import Link from "next/link";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const raleway = Raleway({
   weight: ["400", "700"],
@@ -134,11 +134,114 @@ function Homepage() {
 
   const handleClick = () => {
     const url = `https://wa.me/9619128258`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
+  const [isModalOpen, setIsModalOpen] = useState(true); // Modal state
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log("Name:", name, "Phone:", phone);
+    toggleModal(); // Close the modal after submission
+  };
+
+  useEffect(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  async function submitCallback() {
+    if ((name, phone)) {
+      try {
+        await addDoc(collection(db, "callbacks"), {
+          phone,
+          name,
+        });
+
+        alert("We will contact you soon!");
+      } catch (error) {
+        alert("Something went wrong");
+      }
+    }
+    else{
+      alert('Something is missing.')
+    }
+  }
 
   return (
     <div className="flex flex-col h-screen ">
+      <div className="z-20 fixed ">
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 md:p-0 "
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              className="bg-white p-6 rounded-lg shadow-lg relative md:px-20 md:py-12"
+            >
+              <button
+                onClick={toggleModal}
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 w-5 h-5"
+              >
+                <img src="/close.png" alt="close" className="w-5 h-5" />{" "}
+              </button>
+              <h2 className="text-2xl font-bold mb-4 md:mb-7">
+                Request a Callback
+              </h2>
+              <form onSubmit={handleFormSubmit}>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Name</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-md"
+                    placeholder="Your Name"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Phone Number</label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-md"
+                    placeholder="Your Phone Number"
+                    required
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={toggleModal}
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md mr-2"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                    onClick={submitCallback}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </div>
       <div className="w-screen py-6 px-10 flex justify-between items-center">
         <Link
           href="/"
@@ -325,10 +428,10 @@ function Homepage() {
                         </div> */}
           <motion.div
             className="w-screen p-5 pb-5 flex justify-end items-center bottom-16 fixed"
-            initial={{ opacity: 0, y: 50 }} 
-            animate={{ opacity: 1, y: 0 }} 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            onClick={handleClick}            
+            onClick={handleClick}
           >
             <img
               src="/whatsapp.png"
