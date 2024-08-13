@@ -213,13 +213,13 @@ function Homepage() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Phone Number</label>
+                  <label className="block text-gray-700">Whatsapp No.</label>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full px-4 py-2 border rounded-md"
-                    placeholder="Your Phone Number"
+                    placeholder="Enter your Whatsapp No."
                     required
                   />
                 </div>
