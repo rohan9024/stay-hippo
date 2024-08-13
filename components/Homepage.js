@@ -136,7 +136,7 @@ function Homepage() {
     const url = `https://wa.me/9619128258`;
     window.open(url, "_blank");
   };
-  const [isModalOpen, setIsModalOpen] = useState(true); // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -146,15 +146,17 @@ function Homepage() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log("Name:", name, "Phone:", phone);
-    toggleModal(); // Close the modal after submission
+    toggleModal(); 
   };
 
   useEffect(() => {
-    setIsModalOpen(true);
-  }, []);
+    const timer = setTimeout(() => {
+      setIsModalOpen(true);
+    }, 5000); 
 
+    return () => clearTimeout(timer); 
+  }, []);
   async function submitCallback() {
     if ((name, phone)) {
       try {
